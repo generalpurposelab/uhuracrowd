@@ -231,12 +231,6 @@ function DotMark() {
   );
 }
 
-function formatSpeakers(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(0)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
-  return n.toString();
-}
-
 /* ── Empty map side panel ── */
 function EmptyPanel({
   languages,
@@ -249,49 +243,23 @@ function EmptyPanel({
   onFilterChange: (f: MapFilter) => void;
   onSubmit: () => void;
 }) {
-  const benchmarkedCount = languages.filter((l) => l.hasBenchmark).length;
-  const noneCount = languages.filter((l) => !l.hasBenchmark).length;
-
-  // Partial = language belongs to a family where some—but not all—are benchmarked.
-  // For display, show language-level counts for green/red and derive partial from families.
   const familyMap: Record<string, Language[]> = {};
   languages.forEach((l) => {
     if (!familyMap[l.familyGroup]) familyMap[l.familyGroup] = [];
     familyMap[l.familyGroup].push(l);
   });
-  const partialFamilies = Object.values(familyMap).filter(
-    (langs) => {
-      const n = langs.filter((l) => l.hasBenchmark).length;
-      return n > 0 && n < langs.length;
-    }
-  ).length;
-  const allFamilies = Object.values(familyMap).filter(
-    (langs) => langs.every((l) => l.hasBenchmark)
-  ).length;
-  const noneFamilies = Object.values(familyMap).filter(
-    (langs) => langs.every((l) => !l.hasBenchmark)
-  ).length;
+  const allFamilies     = Object.values(familyMap).filter((langs) => langs.every((l) => l.hasBenchmark)).length;
+  const partialFamilies = Object.values(familyMap).filter((langs) => { const n = langs.filter((l) => l.hasBenchmark).length; return n > 0 && n < langs.length; }).length;
+  const noneFamilies    = Object.values(familyMap).filter((langs) => langs.every((l) => !l.hasBenchmark)).length;
 
-  const biggestGaps = [...languages]
-    .filter((l) => !l.hasBenchmark)
-    .sort((a, b) => b.speakers - a.speakers)
-    .slice(0, 3);
-
-  const filters: { key: MapFilter; color: string; label: string; count: string }[] = [
-    { key: "benchmarked", color: "#22c55e", label: "All benchmarked", count: `${allFamilies} ${allFamilies === 1 ? "family" : "families"}` },
-    { key: "partial",     color: "#f59e0b", label: "Partially covered", count: `${partialFamilies} ${partialFamilies === 1 ? "family" : "families"}` },
-    { key: "none",        color: "#ef4444", label: "No benchmarks yet", count: `${noneFamilies} ${noneFamilies === 1 ? "family" : "families"}` },
+  const filters: { key: MapFilter; color: string; label: string; count: number }[] = [
+    { key: "benchmarked", color: "#22c55e", label: "All benchmarked",   count: allFamilies },
+    { key: "partial",     color: "#f59e0b", label: "Partially covered", count: partialFamilies },
+    { key: "none",        color: "#ef4444", label: "No benchmarks yet", count: noneFamilies },
   ];
 
   return (
-    <div className="rounded-xl border flex flex-col gap-0 overflow-hidden" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
-      <div className="p-5 flex flex-col gap-1 border-b" style={{ borderColor: "#2A2420" }}>
-        <p className="text-sm font-medium" style={{ color: "#F0EDE8" }}>Explore by coverage</p>
-        <p className="text-xs" style={{ color: "#6B5F52" }}>
-          Click a filter to highlight matching families. Then click a bubble to expand it.
-        </p>
-      </div>
-
+    <div className="rounded-xl border overflow-hidden" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
       <div className="p-5 flex flex-col gap-2">
         {filters.map(({ key, color, label, count }) => {
           const active = mapFilter === key;
@@ -309,54 +277,22 @@ function EmptyPanel({
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: color }} />
               <span className="flex-1 text-xs font-medium" style={{ color: active ? "#F0EDE8" : "#9A8B7A" }}>{label}</span>
               <span className="text-xs tabular-nums" style={{ color: active ? color : "#6B5F52" }}>{count}</span>
-              {active && (
-                <span className="text-xs font-bold ml-1" style={{ color: "#6B5F52" }}>×</span>
-              )}
+              {active && <span className="text-xs font-bold ml-1" style={{ color: "#6B5F52" }}>×</span>}
             </button>
           );
         })}
       </div>
 
-      <div className="px-5 pb-5 flex flex-col gap-3 border-t" style={{ borderColor: "#2A2420" }}>
-        <div className="pt-4">
-          <p className="text-xs font-medium mb-2.5" style={{ color: "#9A8B7A" }}>Biggest gaps</p>
-          <div className="flex flex-col gap-2">
-            {biggestGaps.map((lang) => (
-              <div key={lang.id} className="flex items-center justify-between gap-2">
-                <div>
-                  <span className="text-xs font-medium" style={{ color: "#F0EDE8" }}>{lang.name}</span>
-                  {lang.nativeName && lang.nativeName !== lang.name && (
-                    <span className="text-xs ml-1.5" style={{ color: "#6B5F52" }}>{lang.nativeName}</span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <span className="text-xs" style={{ color: "#6B5F52" }}>{lang.subregion || lang.region}</span>
-                  <span
-                    className="text-xs tabular-nums px-1.5 py-0.5 rounded"
-                    style={{ background: "rgba(239,68,68,0.08)", color: "#ef4444" }}
-                  >
-                    {formatSpeakers(lang.speakers)}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="border-t pt-3" style={{ borderColor: "#2A2420" }}>
-          <p className="text-xs mb-2.5" style={{ color: "#6B5F52" }}>
-            {noneCount} of {languages.length} languages still need benchmarks.
-          </p>
-          <button
-            onClick={onSubmit}
-            className="w-full py-2 text-sm font-semibold rounded-lg transition-colors"
-            style={{ background: "#2A2420", color: "#E07832", border: "1px solid #3D3028" }}
-            onMouseEnter={e => (e.currentTarget.style.background = "#3D3028")}
-            onMouseLeave={e => (e.currentTarget.style.background = "#2A2420")}
-          >
-            Submit a benchmark
-          </button>
-        </div>
+      <div className="px-5 pb-5 border-t pt-4" style={{ borderColor: "#2A2420" }}>
+        <button
+          onClick={onSubmit}
+          className="w-full py-2 text-sm font-semibold rounded-lg transition-colors"
+          style={{ background: "#2A2420", color: "#E07832", border: "1px solid #3D3028" }}
+          onMouseEnter={e => (e.currentTarget.style.background = "#3D3028")}
+          onMouseLeave={e => (e.currentTarget.style.background = "#2A2420")}
+        >
+          Submit a benchmark
+        </button>
       </div>
     </div>
   );
