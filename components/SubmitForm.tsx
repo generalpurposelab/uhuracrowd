@@ -20,24 +20,22 @@ export interface SubmissionData {
 }
 
 const COMMON_TASKS = [
-  "ARC-Easy",
-  "TruthfulQA",
-  "MMLU",
-  "NER",
-  "Machine Translation",
-  "Sentiment Analysis",
-  "QA",
-  "NLI",
-  "Language Modeling",
-  "Visual QA",
+  "ARC-Easy", "TruthfulQA", "MMLU", "NER", "Machine Translation",
+  "Sentiment Analysis", "QA", "NLI", "Language Modeling", "Visual QA",
 ];
 
-export default function SubmitForm({
-  languages,
-  preselectedLanguage,
-  onClose,
-  onSubmit,
-}: SubmitFormProps) {
+const inputStyle = {
+  background: "#1A1512",
+  border: "1px solid #2A2420",
+  color: "#F0EDE8",
+  borderRadius: "0.5rem",
+  padding: "0.5rem 0.75rem",
+  fontSize: "0.875rem",
+  width: "100%",
+  outline: "none",
+};
+
+export default function SubmitForm({ languages, preselectedLanguage, onClose, onSubmit }: SubmitFormProps) {
   const [form, setForm] = useState<SubmissionData>({
     languageId: preselectedLanguage?.id ?? "",
     benchmarkName: "",
@@ -48,25 +46,18 @@ export default function SubmitForm({
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const set = (key: keyof SubmissionData) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  const set = (key: keyof SubmissionData) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+      setForm((f) => ({ ...f, [key]: e.target.value }));
 
   const toggleTask = (task: string) => {
-    const current = form.tasks
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
-    const next = current.includes(task)
-      ? current.filter((t) => t !== task)
-      : [...current, task];
+    const current = form.tasks.split(",").map((t) => t.trim()).filter(Boolean);
+    const next = current.includes(task) ? current.filter((t) => t !== task) : [...current, task];
     setForm((f) => ({ ...f, tasks: next.join(", ") }));
   };
 
-  const selectedTasks = form.tasks
-    .split(",")
-    .map((t) => t.trim())
-    .filter(Boolean);
+  const selectedTasks = form.tasks.split(",").map((t) => t.trim()).filter(Boolean);
+  const isValid = form.languageId && form.benchmarkName && form.url && form.tasks;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,27 +65,25 @@ export default function SubmitForm({
     setSubmitted(true);
   };
 
-  const isValid =
-    form.languageId && form.benchmarkName && form.url && form.tasks;
-
   if (submitted) {
     return (
-      <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full text-center">
-          <div className="text-4xl mb-4">🎉</div>
-          <h2 className="text-white text-xl font-semibold mb-2">
-            Thanks for contributing!
-          </h2>
-          <p className="text-slate-400 text-sm mb-6">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)" }}>
+        <div className="rounded-2xl p-8 max-w-md w-full text-center border" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(224,120,50,0.1)" }}>
+            <span style={{ color: "#E07832", fontSize: "1.5rem" }}>✓</span>
+          </div>
+          <h2 className="text-xl font-semibold mb-2" style={{ color: "#F0EDE8" }}>Thanks for contributing!</h2>
+          <p className="text-sm mb-6" style={{ color: "#9A8B7A" }}>
             Your submission for{" "}
-            <span className="text-amber-400">
+            <span style={{ color: "#E07832" }}>
               {languages.find((l) => l.id === form.languageId)?.name}
             </span>{" "}
-            has been recorded. The Uhura map grows with every contribution.
+            has been recorded. The map grows with every contribution.
           </p>
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-lg transition-colors"
+            className="px-6 py-2 font-semibold rounded-lg"
+            style={{ background: "#E07832", color: "#13100D" }}
           >
             Back to map
           </button>
@@ -104,151 +93,97 @@ export default function SubmitForm({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)" }}>
+      <div className="rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto border" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="text-white text-lg font-semibold">
-              Submit a benchmark
-            </h2>
-            <p className="text-slate-500 text-sm mt-0.5">
-              Help map LLM research for low-resource languages
-            </p>
+            <h2 className="text-lg font-semibold" style={{ color: "#F0EDE8" }}>Submit a benchmark</h2>
+            <p className="text-sm mt-0.5" style={{ color: "#6B5F52" }}>Help map LLM research for low-resource languages</p>
           </div>
-          <button
-            onClick={onClose}
-            className="text-slate-500 hover:text-white transition-colors text-2xl leading-none"
-          >
-            ×
-          </button>
+          <button onClick={onClose} className="text-2xl leading-none" style={{ color: "#6B5F52" }}>×</button>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label className="text-xs text-slate-400 mb-1 block">
-              Language *
-            </label>
-            <select
-              value={form.languageId}
-              onChange={set("languageId")}
-              required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500"
-            >
+          <Field label="Language *">
+            <select value={form.languageId} onChange={set("languageId")} required style={inputStyle}>
               <option value="">Select a language...</option>
-              {[...languages]
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((l) => (
-                  <option key={l.id} value={l.id}>
-                    {l.name}
-                    {l.nativeName && l.nativeName !== l.name
-                      ? ` (${l.nativeName})`
-                      : ""}
-                  </option>
-                ))}
+              {[...languages].sort((a, b) => a.name.localeCompare(b.name)).map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.name}{l.nativeName && l.nativeName !== l.name ? ` (${l.nativeName})` : ""}
+                </option>
+              ))}
             </select>
-          </div>
+          </Field>
 
-          <div>
-            <label className="text-xs text-slate-400 mb-1 block">
-              Benchmark name *
-            </label>
-            <input
-              type="text"
-              value={form.benchmarkName}
-              onChange={set("benchmarkName")}
-              required
-              placeholder="e.g. AfriMMLU, IndicGLUE, XQuAD..."
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500 placeholder-slate-500"
-            />
-          </div>
+          <Field label="Benchmark name *">
+            <input type="text" value={form.benchmarkName} onChange={set("benchmarkName")} required
+              placeholder="e.g. AfriMMLU, IndicGLUE, XQuAD..." style={inputStyle} />
+          </Field>
 
-          <div>
-            <label className="text-xs text-slate-400 mb-1 block">
-              URL / Paper link *
-            </label>
-            <input
-              type="url"
-              value={form.url}
-              onChange={set("url")}
-              required
-              placeholder="https://arxiv.org/... or GitHub URL"
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500 placeholder-slate-500"
-            />
-          </div>
+          <Field label="URL / Paper link *">
+            <input type="url" value={form.url} onChange={set("url")} required
+              placeholder="https://arxiv.org/..." style={inputStyle} />
+          </Field>
 
-          <div>
-            <label className="text-xs text-slate-400 mb-2 block">
-              Tasks covered *
-            </label>
+          <Field label="Tasks covered *">
             <div className="flex flex-wrap gap-1.5 mb-2">
               {COMMON_TASKS.map((task) => (
                 <button
                   type="button"
                   key={task}
                   onClick={() => toggleTask(task)}
-                  className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                  className="text-xs px-2.5 py-1 rounded-full border transition-colors"
+                  style={
                     selectedTasks.includes(task)
-                      ? "bg-amber-500 border-amber-500 text-black font-medium"
-                      : "border-slate-600 text-slate-400 hover:border-slate-400"
-                  }`}
+                      ? { background: "#E07832", borderColor: "#E07832", color: "#13100D", fontWeight: 600 }
+                      : { borderColor: "#2A2420", color: "#9A8B7A" }
+                  }
                 >
                   {task}
                 </button>
               ))}
             </div>
-            <input
-              type="text"
-              value={form.tasks}
-              onChange={set("tasks")}
-              placeholder="Or type tasks manually (comma-separated)"
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500 placeholder-slate-500"
-            />
-          </div>
+            <input type="text" value={form.tasks} onChange={set("tasks")}
+              placeholder="Or type tasks manually (comma-separated)" style={inputStyle} />
+          </Field>
 
           <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-xs text-slate-400 mb-1 block">Year</label>
-              <input
-                type="number"
-                value={form.year}
-                onChange={set("year")}
-                min="2018"
-                max="2030"
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500"
-              />
-            </div>
-            <div>
-              <label className="text-xs text-slate-400 mb-1 block">
-                Authors / org
-              </label>
-              <input
-                type="text"
-                value={form.authors}
-                onChange={set("authors")}
-                placeholder="e.g. Adelani et al."
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500 placeholder-slate-500"
-              />
-            </div>
+            <Field label="Year">
+              <input type="number" value={form.year} onChange={set("year")} min="2018" max="2030" style={inputStyle} />
+            </Field>
+            <Field label="Authors / org">
+              <input type="text" value={form.authors} onChange={set("authors")}
+                placeholder="e.g. Adelani et al." style={inputStyle} />
+            </Field>
           </div>
 
           <div className="flex gap-3 pt-1">
             <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 py-2 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium rounded-lg transition-colors"
+              type="button" onClick={onClose}
+              className="flex-1 py-2 px-4 text-sm font-medium rounded-lg"
+              style={{ background: "#2A2420", color: "#9A8B7A" }}
             >
               Cancel
             </button>
             <button
-              type="submit"
-              disabled={!isValid}
-              className="flex-1 py-2 px-4 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed text-black text-sm font-semibold rounded-lg transition-colors"
+              type="submit" disabled={!isValid}
+              className="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors"
+              style={{ background: isValid ? "#E07832" : "#2A2420", color: isValid ? "#13100D" : "#6B5F52", cursor: isValid ? "pointer" : "not-allowed" }}
             >
               Submit benchmark
             </button>
           </div>
         </form>
       </div>
+    </div>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label className="text-xs mb-1 block" style={{ color: "#9A8B7A" }}>{label}</label>
+      {children}
     </div>
   );
 }
