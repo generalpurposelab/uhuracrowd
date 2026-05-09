@@ -231,12 +231,6 @@ function DotMark() {
   );
 }
 
-function formatSpeakers(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(0)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
-  return n.toString();
-}
-
 /* ── Empty map side panel ── */
 function EmptyPanel({
   languages,
@@ -254,14 +248,14 @@ function EmptyPanel({
     if (!familyMap[l.familyGroup]) familyMap[l.familyGroup] = [];
     familyMap[l.familyGroup].push(l);
   });
-  const allFamilies     = Object.values(familyMap).filter((langs) => langs.every((l) => l.hasBenchmark)).length;
-  const partialFamilies = Object.values(familyMap).filter((langs) => { const n = langs.filter((l) => l.hasBenchmark).length; return n > 0 && n < langs.length; }).length;
-  const noneFamilies    = Object.values(familyMap).filter((langs) => langs.every((l) => !l.hasBenchmark)).length;
+  const allLangs     = Object.values(familyMap).filter((langs) => langs.every((l) => l.hasBenchmark)).flat().length;
+  const partialLangs = Object.values(familyMap).filter((langs) => { const n = langs.filter((l) => l.hasBenchmark).length; return n > 0 && n < langs.length; }).flat().length;
+  const noneLangs    = Object.values(familyMap).filter((langs) => langs.every((l) => !l.hasBenchmark)).flat().length;
 
   const filters: { key: MapFilter; color: string; label: string; count: number }[] = [
-    { key: "benchmarked", color: "#22c55e", label: "All benchmarked",   count: allFamilies },
-    { key: "partial",     color: "#f59e0b", label: "Partially covered", count: partialFamilies },
-    { key: "none",        color: "#ef4444", label: "No benchmarks yet", count: noneFamilies },
+    { key: "benchmarked", color: "#22c55e", label: "All benchmarked",   count: allLangs },
+    { key: "partial",     color: "#f59e0b", label: "Partially covered", count: partialLangs },
+    { key: "none",        color: "#ef4444", label: "No benchmarks yet", count: noneLangs },
   ];
 
   return (
