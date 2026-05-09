@@ -80,7 +80,23 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
                         {b.name}
                       </p>
                       {b.authors && (
-                        <p className="text-xs mt-0.5" style={{ color: "#6B5F52" }}>{b.authors}</p>
+                        <p className="text-xs mt-0.5">
+                          {b.authorUrl ? (
+                            <a
+                              href={b.authorUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={e => e.stopPropagation()}
+                              style={{ color: "#E07832", textDecoration: "underline", textUnderlineOffset: "2px", textDecorationColor: "rgba(224,120,50,0.35)" }}
+                              onMouseEnter={e => (e.currentTarget.style.textDecorationColor = "#E07832")}
+                              onMouseLeave={e => (e.currentTarget.style.textDecorationColor = "rgba(224,120,50,0.35)")}
+                            >
+                              {b.authors}
+                            </a>
+                          ) : (
+                            <span style={{ color: "#6B5F52" }}>{b.authors}</span>
+                          )}
+                        </p>
                       )}
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {b.tasks.map((t) => (

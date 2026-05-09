@@ -17,6 +17,7 @@ export interface SubmissionData {
   tasks: string;
   year: string;
   authors: string;
+  authorUrl: string;
 }
 
 const COMMON_TASKS = [
@@ -43,6 +44,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
     tasks: "",
     year: new Date().getFullYear().toString(),
     authors: "",
+    authorUrl: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -156,6 +158,15 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
                 placeholder="e.g. Adelani et al." style={inputStyle} />
             </Field>
           </div>
+
+          <Field label="Your profile link (optional)">
+            <input type="url" value={form.authorUrl} onChange={set("authorUrl")}
+              placeholder="GitHub, personal site, Google Scholar..."
+              style={inputStyle} />
+            <p className="text-xs mt-1.5" style={{ color: "#6B5F52" }}>
+              Shown on the benchmark card — makes you discoverable to collaborators.
+            </p>
+          </Field>
 
           <div className="flex gap-3 pt-1">
             <button
