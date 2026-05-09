@@ -95,7 +95,7 @@ export default function WorldMap({
   };
 
   return (
-    <div className="relative w-full bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+    <div className="relative w-full rounded-xl overflow-hidden border" style={{ background: "#0D0B09", borderColor: "#2A2420" }}>
       {tooltip && (
         <div
           className="absolute z-10 pointer-events-none bg-slate-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
@@ -106,11 +106,12 @@ export default function WorldMap({
       )}
 
       {expandedFamily && (
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-2 bg-slate-800/90 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white">
-          <span className="text-amber-400 font-medium">{expandedFamily}</span>
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs" style={{ background: "rgba(26,21,18,0.95)", border: "1px solid #2A2420", color: "#F0EDE8" }}>
+          <span className="font-medium" style={{ color: "#E07832" }}>{expandedFamily}</span>
           <button
             onClick={() => setExpandedFamily(null)}
-            className="text-slate-400 hover:text-white transition-colors ml-1"
+            className="ml-1 transition-colors"
+            style={{ color: "#6B5F52" }}
           >
             ← all families
           </button>
@@ -264,19 +265,19 @@ export default function WorldMap({
                         r={dotR}
                         fill={
                           isSelected
-                            ? "#f59e0b"
+                            ? "#F0EDE8"
                             : lang.hasBenchmark
                             ? "#22c55e"
-                            : "#f97316"
+                            : "#E07832"
                         }
-                        stroke={isSelected ? "#fbbf24" : "rgba(0,0,0,0.4)"}
+                        stroke={isSelected ? "#E07832" : "rgba(0,0,0,0.4)"}
                         strokeWidth={isSelected ? 2 : 1}
                         style={{
                           filter: isSelected
-                            ? "drop-shadow(0 0 6px #f59e0b)"
+                            ? "drop-shadow(0 0 6px #E07832)"
                             : lang.hasBenchmark
                             ? "drop-shadow(0 0 3px #16a34a)"
-                            : "drop-shadow(0 0 3px #ea580c)",
+                            : "drop-shadow(0 0 3px #E07832)",
                           transition: "all 0.15s ease",
                         }}
                       />
@@ -307,22 +308,20 @@ export default function WorldMap({
       </ComposableMap>
 
       <div className="absolute bottom-3 left-3 flex gap-4 text-xs">
-        <span className="flex items-center gap-1.5 text-slate-300">
-          <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-500" />
-          All benchmarked
-        </span>
-        <span className="flex items-center gap-1.5 text-slate-300">
-          <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-400" />
-          Partial
-        </span>
-        <span className="flex items-center gap-1.5 text-slate-300">
-          <span className="inline-block w-2.5 h-2.5 rounded-full bg-orange-500" />
-          None yet
-        </span>
+        {[
+          { color: "#22c55e", label: "All benchmarked" },
+          { color: "#E07832", label: "Partial" },
+          { color: "#f97316", label: "None yet" },
+        ].map(({ color, label }) => (
+          <span key={label} className="flex items-center gap-1.5" style={{ color: "#9A8B7A" }}>
+            <span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />
+            {label}
+          </span>
+        ))}
       </div>
 
-      <div className="absolute bottom-3 right-3 text-xs text-slate-600">
-        {expandedFamily ? "Click a language dot to explore" : "Click a family bubble to expand"}
+      <div className="absolute bottom-3 right-3 text-xs" style={{ color: "#3D3028" }}>
+        {expandedFamily ? "Click a dot to explore" : "Click a bubble to expand"}
       </div>
     </div>
   );

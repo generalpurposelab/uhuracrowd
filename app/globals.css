@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #13100D;
+  --foreground: #F0EDE8;
+  --brand-orange: #E07832;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-playfair);
 }
 
 @theme inline {
@@ -12,15 +16,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Brand dot-grid texture */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(224, 120, 50, 0.10) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+.dot-grid-faint {
+  background-image: radial-gradient(circle, rgba(240, 237, 232, 0.05) 1px, transparent 1px);
+  background-size: 10px 10px;
 }

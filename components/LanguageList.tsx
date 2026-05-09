@@ -13,18 +13,13 @@ interface LanguageListProps {
 type Filter = "all" | "benchmarked" | "missing";
 type SortKey = "name" | "speakers" | "benchmarks";
 
-export default function LanguageList({
-  languages,
-  selectedLanguage,
-  onSelectLanguage,
-}: LanguageListProps) {
+export default function LanguageList({ languages, selectedLanguage, onSelectLanguage }: LanguageListProps) {
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<SortKey>("name");
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
     let list = languages;
-
     if (search) {
       const q = search.toLowerCase();
       list = list.filter(
@@ -35,27 +30,26 @@ export default function LanguageList({
           l.family.toLowerCase().includes(q)
       );
     }
-
     if (filter === "benchmarked") list = list.filter((l) => l.hasBenchmark);
     if (filter === "missing") list = list.filter((l) => !l.hasBenchmark);
-
     return [...list].sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name);
       if (sort === "speakers") return b.speakers - a.speakers;
-      if (sort === "benchmarks")
-        return b.benchmarks.length - a.benchmarks.length;
+      if (sort === "benchmarks") return b.benchmarks.length - a.benchmarks.length;
       return 0;
     });
   }, [languages, filter, sort, search]);
 
   const filterBtn = (f: Filter, label: string) => (
     <button
+      key={f}
       onClick={() => setFilter(f)}
-      className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+      className="px-3 py-1 rounded-full text-xs font-medium transition-colors"
+      style={
         filter === f
-          ? "bg-amber-500 text-black"
-          : "bg-slate-800 text-slate-400 hover:text-white"
-      }`}
+          ? { background: "#E07832", color: "#13100D" }
+          : { background: "#2A2420", color: "#9A8B7A" }
+      }
     >
       {label}
     </button>
@@ -68,7 +62,14 @@ export default function LanguageList({
         placeholder="Search languages, regions, families..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+        className="w-full px-3 py-2 rounded-lg text-sm focus:outline-none"
+        style={{
+          background: "#1A1512",
+          border: "1px solid #2A2420",
+          color: "#F0EDE8",
+        }}
+        onFocus={e => (e.currentTarget.style.borderColor = "#E07832")}
+        onBlur={e => (e.currentTarget.style.borderColor = "#2A2420")}
       />
 
       <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -80,7 +81,8 @@ export default function LanguageList({
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as SortKey)}
-          className="bg-slate-800 text-slate-300 text-xs rounded px-2 py-1 border border-slate-700 focus:outline-none"
+          className="text-xs rounded px-2 py-1 focus:outline-none"
+          style={{ background: "#2A2420", color: "#9A8B7A", border: "1px solid #3D3028" }}
         >
           <option value="name">Sort: A–Z</option>
           <option value="speakers">Sort: Speakers</option>
@@ -88,7 +90,7 @@ export default function LanguageList({
         </select>
       </div>
 
-      <p className="text-xs text-slate-500">
+      <p className="text-xs" style={{ color: "#6B5F52" }}>
         {filtered.length} language{filtered.length !== 1 ? "s" : ""}
       </p>
 
@@ -102,7 +104,7 @@ export default function LanguageList({
           />
         ))}
         {filtered.length === 0 && (
-          <p className="text-slate-500 text-sm text-center py-8">
+          <p className="text-sm text-center py-8" style={{ color: "#6B5F52" }}>
             No languages match your search.
           </p>
         )}

@@ -14,38 +14,46 @@ function formatSpeakers(n: number): string {
   return n.toString();
 }
 
-export default function LanguageCard({
-  language,
-  isSelected,
-  onClick,
-}: LanguageCardProps) {
+export default function LanguageCard({ language, isSelected, onClick }: LanguageCardProps) {
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left px-4 py-3 rounded-lg border transition-all ${
+      className="w-full text-left px-4 py-3 rounded-lg border transition-all"
+      style={
         isSelected
-          ? "border-amber-500 bg-amber-950/30"
-          : "border-slate-800 bg-slate-900 hover:border-slate-600 hover:bg-slate-800/60"
-      }`}
+          ? { borderColor: "#E07832", background: "rgba(224,120,50,0.08)" }
+          : { borderColor: "#2A2420", background: "#1A1512" }
+      }
+      onMouseEnter={e => {
+        if (!isSelected) {
+          e.currentTarget.style.borderColor = "#3D3028";
+          e.currentTarget.style.background = "#221D18";
+        }
+      }}
+      onMouseLeave={e => {
+        if (!isSelected) {
+          e.currentTarget.style.borderColor = "#2A2420";
+          e.currentTarget.style.background = "#1A1512";
+        }
+      }}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <span
-              className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${
-                language.hasBenchmark ? "bg-green-500" : "bg-orange-500"
-              }`}
+              className="inline-block w-2 h-2 rounded-full flex-shrink-0"
+              style={{ background: language.hasBenchmark ? "#22c55e" : "#E07832" }}
             />
-            <span className="font-medium text-white text-sm truncate">
+            <span className="font-medium text-sm truncate" style={{ color: "#F0EDE8" }}>
               {language.name}
             </span>
             {language.nativeName && language.nativeName !== language.name && (
-              <span className="text-slate-500 text-xs truncate">
+              <span className="text-xs truncate" style={{ color: "#6B5F52" }}>
                 {language.nativeName}
               </span>
             )}
           </div>
-          <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-500">
+          <div className="mt-0.5 flex items-center gap-2 text-xs" style={{ color: "#6B5F52" }}>
             <span>{language.subregion || language.region}</span>
             <span>·</span>
             <span>{formatSpeakers(language.speakers)} speakers</span>
@@ -53,12 +61,11 @@ export default function LanguageCard({
         </div>
         <div className="flex-shrink-0 text-right">
           {language.hasBenchmark ? (
-            <span className="text-xs font-medium text-green-400">
-              {language.benchmarks.length}{" "}
-              {language.benchmarks.length === 1 ? "benchmark" : "benchmarks"}
+            <span className="text-xs font-medium" style={{ color: "#22c55e" }}>
+              {language.benchmarks.length} {language.benchmarks.length === 1 ? "benchmark" : "benchmarks"}
             </span>
           ) : (
-            <span className="text-xs text-orange-400/70">none yet</span>
+            <span className="text-xs" style={{ color: "#6B5F52" }}>none yet</span>
           )}
         </div>
       </div>

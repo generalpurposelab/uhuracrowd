@@ -30,27 +30,44 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: "#13100D", color: "#F0EDE8" }}>
+
       {/* Header */}
-      <header className="border-b border-slate-800 px-6 py-4">
+      <header className="dot-grid border-b px-6 py-5" style={{ borderColor: "#2A2420" }}>
         <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-amber-400 font-bold text-lg tracking-tight">
-                Uhura
-              </span>
-              <span className="text-slate-500 text-sm">by General Purpose</span>
-              <span className="bg-slate-800 text-slate-400 text-xs px-2 py-0.5 rounded-full">
-                Language Map
-              </span>
+          <div className="flex items-center gap-5">
+            {/* Dot-grid logo mark */}
+            <DotMark />
+            <div>
+              <div className="flex items-baseline gap-3">
+                <span
+                  className="font-black uppercase tracking-tight leading-none"
+                  style={{
+                    fontFamily: "var(--font-playfair), Georgia, serif",
+                    fontSize: "1.5rem",
+                    color: "#F0EDE8",
+                  }}
+                >
+                  Uhura
+                </span>
+                <span
+                  className="text-xs uppercase tracking-widest"
+                  style={{ color: "#E07832" }}
+                >
+                  by General Purpose
+                </span>
+              </div>
+              <p className="text-xs mt-0.5" style={{ color: "#6B5F52" }}>
+                A crowdsourced atlas of LLM benchmarks for low-resource languages
+              </p>
             </div>
-            <p className="text-slate-500 text-xs mt-0.5">
-              A crowdsourced atlas of LLM benchmarks for low-resource languages
-            </p>
           </div>
           <button
             onClick={() => setShowSubmit(true)}
-            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-black text-sm font-semibold rounded-lg transition-colors whitespace-nowrap"
+            className="px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap"
+            style={{ background: "#E07832", color: "#13100D" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#F08942")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#E07832")}
           >
             + Submit a benchmark
           </button>
@@ -58,7 +75,7 @@ export default function Home() {
       </header>
 
       {/* Stats */}
-      <div className="border-b border-slate-800 px-6 py-3">
+      <div className="border-b px-6 py-3" style={{ borderColor: "#2A2420", background: "#1A1512" }}>
         <div className="max-w-screen-xl mx-auto">
           <StatsBar languages={languages} />
         </div>
@@ -67,16 +84,20 @@ export default function Home() {
       {/* View toggle */}
       <div className="px-6 pt-4 pb-0">
         <div className="max-w-screen-xl mx-auto">
-          <div className="flex gap-1 bg-slate-900 border border-slate-800 rounded-lg p-0.5 w-fit">
+          <div
+            className="flex gap-0.5 rounded-lg p-0.5 w-fit border"
+            style={{ background: "#1A1512", borderColor: "#2A2420" }}
+          >
             {(["map", "list"] as View[]).map((v) => (
               <button
                 key={v}
                 onClick={() => setView(v)}
-                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors capitalize ${
+                className="px-4 py-1.5 rounded-md text-sm font-medium transition-colors capitalize"
+                style={
                   view === v
-                    ? "bg-slate-700 text-white"
-                    : "text-slate-500 hover:text-white"
-                }`}
+                    ? { background: "#2A2420", color: "#F0EDE8" }
+                    : { color: "#6B5F52" }
+                }
               >
                 {v === "map" ? "Map view" : "List view"}
               </button>
@@ -90,7 +111,6 @@ export default function Home() {
         <div className="max-w-screen-xl mx-auto">
           {view === "map" ? (
             <div className="flex gap-4 flex-col lg:flex-row">
-              {/* Map */}
               <div className="flex-1 min-w-0">
                 <WorldMap
                   languages={languages}
@@ -98,8 +118,6 @@ export default function Home() {
                   onSelectLanguage={handleSelectLanguage}
                 />
               </div>
-
-              {/* Side panel */}
               <div className="w-full lg:w-80 flex-shrink-0">
                 {selectedLanguage ? (
                   <LanguageDetail
@@ -108,27 +126,7 @@ export default function Home() {
                     onSubmitBenchmark={() => setShowSubmit(true)}
                   />
                 ) : (
-                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
-                    <div className="text-3xl mb-3">🌍</div>
-                    <p className="text-slate-400 text-sm">
-                      Click any dot on the map to explore a language and its
-                      benchmarks.
-                    </p>
-                    <div className="mt-4 flex flex-col gap-2 text-left">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <span className="w-2.5 h-2.5 rounded-full bg-green-500 flex-shrink-0" />
-                        Green dots have at least one LLM benchmark
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <span className="w-2.5 h-2.5 rounded-full bg-orange-500 flex-shrink-0" />
-                        Orange dots have no benchmarks yet
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 flex-shrink-0" />
-                        Yellow = currently selected
-                      </div>
-                    </div>
-                  </div>
+                  <EmptyPanel onSubmit={() => setShowSubmit(true)} />
                 )}
               </div>
             </div>
@@ -149,9 +147,12 @@ export default function Home() {
                     onSubmitBenchmark={() => setShowSubmit(true)}
                   />
                 ) : (
-                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center sticky top-4">
-                    <p className="text-slate-500 text-sm">
-                      Select a language from the list to see its benchmarks.
+                  <div
+                    className="rounded-xl p-5 text-center sticky top-4 border"
+                    style={{ background: "#1A1512", borderColor: "#2A2420" }}
+                  >
+                    <p className="text-sm" style={{ color: "#6B5F52" }}>
+                      Select a language to see its benchmarks.
                     </p>
                   </div>
                 )}
@@ -162,23 +163,24 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 px-6 py-4 mt-4">
+      <footer className="border-t px-6 py-4 mt-4" style={{ borderColor: "#2A2420" }}>
         <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-          <p className="text-slate-600 text-xs">
+          <p className="text-xs" style={{ color: "#3D3028" }}>
             Built by{" "}
             <a
               href="https://generalpurpose.ai"
-              className="text-slate-500 hover:text-white transition-colors"
+              className="transition-colors"
+              style={{ color: "#6B5F52" }}
               target="_blank"
               rel="noopener noreferrer"
             >
               General Purpose
             </a>
-            {" "}alongside the Uhura benchmark. Celebrating researchers tackling low-resource languages.
+            {" "}· Celebrating researchers tackling low-resource languages worldwide.
           </p>
           {submissions.length > 0 && (
-            <span className="text-xs text-amber-500">
-              {submissions.length} submission{submissions.length !== 1 ? "s" : ""} in this session
+            <span className="text-xs" style={{ color: "#E07832" }}>
+              {submissions.length} submission{submissions.length !== 1 ? "s" : ""} this session
             </span>
           )}
         </div>
@@ -189,11 +191,81 @@ export default function Home() {
           languages={languages}
           preselectedLanguage={selectedLanguage}
           onClose={() => setShowSubmit(false)}
-          onSubmit={(data) => {
-            handleSubmit(data);
-          }}
+          onSubmit={handleSubmit}
         />
       )}
+    </div>
+  );
+}
+
+/* ── Small dot-grid logo mark ── */
+function DotMark() {
+  const cols = 7;
+  const rows = 7;
+  const gap = 4;
+  const r = 1;
+  const size = (cols - 1) * gap;
+  return (
+    <svg width={size + r * 2} height={size + r * 2} viewBox={`0 0 ${size + r * 2} ${size + r * 2}`}>
+      {Array.from({ length: rows }).map((_, row) =>
+        Array.from({ length: cols }).map((_, col) => (
+          <circle
+            key={`${row}-${col}`}
+            cx={r + col * gap}
+            cy={r + row * gap}
+            r={r}
+            fill="#E07832"
+            opacity={0.7}
+          />
+        ))
+      )}
+    </svg>
+  );
+}
+
+/* ── Empty map side panel ── */
+function EmptyPanel({ onSubmit }: { onSubmit: () => void }) {
+  return (
+    <div
+      className="rounded-xl border overflow-hidden"
+      style={{ background: "#1A1512", borderColor: "#2A2420" }}
+    >
+      <div className="dot-grid-faint p-5 border-b" style={{ borderColor: "#2A2420" }}>
+        <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "#E07832" }}>
+          How to use
+        </p>
+        <p className="text-sm" style={{ color: "#9A8B7A" }}>
+          Click any bubble to explore a language family, then a language dot to see its benchmarks.
+        </p>
+      </div>
+      <div className="p-5 flex flex-col gap-3">
+        <Legend color="#22c55e" label="All languages benchmarked" />
+        <Legend color="#E07832" label="Some benchmarked" />
+        <Legend color="#f97316" label="No benchmarks yet" />
+        <div className="pt-2 border-t" style={{ borderColor: "#2A2420" }}>
+          <p className="text-xs mb-3" style={{ color: "#6B5F52" }}>
+            Know of a benchmark we&apos;ve missed?
+          </p>
+          <button
+            onClick={onSubmit}
+            className="w-full py-2 text-sm font-semibold rounded-lg transition-colors"
+            style={{ background: "#2A2420", color: "#E07832", border: "1px solid #3D3028" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#3D3028")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#2A2420")}
+          >
+            Submit a benchmark
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Legend({ color, label }: { color: string; label: string }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: color }} />
+      <span className="text-xs" style={{ color: "#9A8B7A" }}>{label}</span>
     </div>
   );
 }
