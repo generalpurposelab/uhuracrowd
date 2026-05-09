@@ -15,10 +15,13 @@ import { Language, FamilyGroup } from "@/types";
 const GEO_URL =
   "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
+type MapFilter = "all" | "benchmarked" | "partial" | "none";
+
 interface WorldMapProps {
   languages: Language[];
   onSelectLanguage: (lang: Language) => void;
   selectedLanguage: Language | null;
+  mapFilter?: MapFilter;
 }
 
 function computeFamilyGroups(languages: Language[]): FamilyGroup[] {
@@ -66,10 +69,18 @@ function radialLabel(
   return { lx, ly, anchor };
 }
 
+function familyMatchesFilter(group: FamilyGroup, filter: MapFilter): boolean {
+  if (filter === "all") return true;
+  if (filter === "benchmarked") return group.benchmarkedCount === group.languages.length;
+  if (filter === "partial") return group.benchmarkedCount > 0 && group.benchmarkedCount < group.languages.length;
+  return group.benchmarkedCount === 0; // "none"
+}
+
 export default function WorldMap({
   languages,
   onSelectLanguage,
   selectedLanguage,
+  mapFilter = "all",
 }: WorldMapProps) {
   const [expandedFamily, setExpandedFamily] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<{
@@ -149,12 +160,14 @@ export default function WorldMap({
               familyGroups.map((group) => {
                 const r = familyRadius(group);
                 const color = familyColor(group);
+                const dimmed = !familyMatchesFilter(group, mapFilter);
                 return (
                   <Marker
                     key={group.name}
                     coordinates={group.centroid}
-                    onClick={() => handleFamilyClick(group.name)}
+                    onClick={() => !dimmed && handleFamilyClick(group.name)}
                     onMouseEnter={(e: MouseEvent<SVGGElement>) => {
+                      if (dimmed) return;
                       const pos = getMousePos(e);
                       if (pos)
                         setTooltip({
@@ -163,42 +176,47 @@ export default function WorldMap({
                         });
                     }}
                     onMouseLeave={() => setTooltip(null)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: dimmed ? "default" : "pointer" }}
                   >
                     <circle
                       r={r}
                       fill={color}
-                      fillOpacity={0.85}
-                      stroke="rgba(0,0,0,0.3)"
+                      fillOpacity={dimmed ? 0.12 : 0.85}
+                      stroke={color}
+                      strokeOpacity={dimmed ? 0.08 : 0}
                       strokeWidth={1}
-                      style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+                      style={dimmed ? {} : { filter: `drop-shadow(0 0 4px ${color})` }}
                     />
-                    <text
-                      textAnchor="middle"
-                      y={r + 10}
-                      style={{
-                        fontSize: 8,
-                        fill: "#cbd5e1",
-                        pointerEvents: "none",
-                        fontFamily: "sans-serif",
-                      }}
-                    >
-                      {group.name}
-                    </text>
-                    {group.benchmarkedCount > 0 && (
-                      <text
-                        textAnchor="middle"
-                        y={4}
-                        style={{
-                          fontSize: 8,
-                          fill: "#fff",
-                          fontWeight: "bold",
-                          pointerEvents: "none",
-                          fontFamily: "sans-serif",
-                        }}
-                      >
-                        {group.benchmarkedCount}/{group.languages.length}
-                      </text>
+                    {!dimmed && (
+                      <>
+                        <text
+                          textAnchor="middle"
+                          y={r + 10}
+                          style={{
+                            fontSize: 8,
+                            fill: "#cbd5e1",
+                            pointerEvents: "none",
+                            fontFamily: "sans-serif",
+                          }}
+                        >
+                          {group.name}
+                        </text>
+                        {group.benchmarkedCount > 0 && (
+                          <text
+                            textAnchor="middle"
+                            y={4}
+                            style={{
+                              fontSize: 8,
+                              fill: "#fff",
+                              fontWeight: "bold",
+                              pointerEvents: "none",
+                              fontFamily: "sans-serif",
+                            }}
+                          >
+                            {group.benchmarkedCount}/{group.languages.length}
+                          </text>
+                        )}
+                      </>
                     )}
                   </Marker>
                 );
