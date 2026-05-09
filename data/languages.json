@@ -6,8 +6,8 @@
     "speakers": 35000000, "coordinates": [39.5, 9.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane" },
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane", "authorUrl": "https://generalpurpose.ai" },
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -17,8 +17,8 @@
     "speakers": 54000000, "coordinates": [9.0, 12.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane" },
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane", "authorUrl": "https://generalpurpose.ai" },
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -60,7 +60,7 @@
     "speakers": 4600000, "coordinates": [29.5, -24.5],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane" }
+      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane", "authorUrl": "https://generalpurpose.ai" }
     ]
   },
   {
@@ -70,8 +70,8 @@
     "speakers": 16000000, "coordinates": [36.8, -6.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane" },
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane", "authorUrl": "https://generalpurpose.ai" },
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -81,8 +81,8 @@
     "speakers": 40000000, "coordinates": [3.9, 7.4],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane" },
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane", "authorUrl": "https://generalpurpose.ai" },
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -92,8 +92,8 @@
     "speakers": 13600000, "coordinates": [31.0, -29.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane" },
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "Uhura", "url": "https://uhura.dev", "tasks": ["ARC-Easy", "TruthfulQA"], "year": 2024, "authors": "Bayes et al. / General Purpose, Masakhane", "authorUrl": "https://generalpurpose.ai" },
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -103,8 +103,8 @@
     "speakers": 27000000, "coordinates": [7.5, 5.5],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." },
-      { "name": "Masakhane NER", "url": "https://github.com/masakhane-io/masakhane-ner", "tasks": ["NER"], "year": 2021, "authors": "Adelani et al." }
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" },
+      { "name": "Masakhane NER", "url": "https://github.com/masakhane-io/masakhane-ner", "tasks": ["NER"], "year": 2021, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -114,7 +114,7 @@
     "speakers": 9000000, "coordinates": [-1.5, 7.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -124,7 +124,7 @@
     "speakers": 5000000, "coordinates": [-14.5, 14.5],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." }
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" }
     ]
   },
   {
@@ -134,8 +134,8 @@
     "speakers": 9800000, "coordinates": [29.9, -1.9],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al." },
-      { "name": "Masakhane MT", "url": "https://github.com/masakhane-io/masakhane-mt", "tasks": ["Machine Translation"], "year": 2020, "authors": "Nekoto et al." }
+      { "name": "AfriMMLU", "url": "https://github.com/masakhane-io/afrimmlu", "tasks": ["MMLU"], "year": 2024, "authors": "Adelani et al.", "authorUrl": "https://dadelani.github.io" },
+      { "name": "Masakhane MT", "url": "https://github.com/masakhane-io/masakhane-mt", "tasks": ["Machine Translation"], "year": 2020, "authors": "Nekoto et al.", "authorUrl": "https://github.com/masakhane-io" }
     ]
   },
   {
@@ -236,7 +236,7 @@
     "speakers": 600000000, "coordinates": [78.9, 26.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al." },
+      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al.", "authorUrl": "https://ai4bharat.iitm.ac.in" },
       { "name": "AI4Bharat IndicNLP", "url": "https://ai4bharat.iitm.ac.in/", "tasks": ["NER", "NLI", "QA"], "year": 2023, "authors": "AI4Bharat" }
     ]
   },
@@ -247,7 +247,7 @@
     "speakers": 230000000, "coordinates": [90.4, 23.7],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al." },
+      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al.", "authorUrl": "https://ai4bharat.iitm.ac.in" },
       { "name": "BanglaGLUE", "url": "https://github.com/csebuetnlp/banglabert", "tasks": ["NER", "NLI", "QA"], "year": 2022, "authors": "Bhattacharjee et al." }
     ]
   },
@@ -289,7 +289,7 @@
     "speakers": 16000000, "coordinates": [84.1, 28.3],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al." }
+      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al.", "authorUrl": "https://ai4bharat.iitm.ac.in" }
     ]
   },
   {
@@ -334,7 +334,7 @@
     "speakers": 78000000, "coordinates": [79.0, 11.0],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al." }
+      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al.", "authorUrl": "https://ai4bharat.iitm.ac.in" }
     ]
   },
   {
@@ -344,7 +344,7 @@
     "speakers": 83000000, "coordinates": [79.7, 17.4],
     "hasBenchmark": true,
     "benchmarks": [
-      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al." }
+      { "name": "IndicGLUE", "url": "https://indicnlp.ai4bharat.org/indic-glue/", "tasks": ["NLI", "Sentiment", "QA"], "year": 2022, "authors": "Kakwani et al.", "authorUrl": "https://ai4bharat.iitm.ac.in" }
     ]
   },
   {

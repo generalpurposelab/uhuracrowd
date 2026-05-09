@@ -4,6 +4,7 @@ export interface Benchmark {
   tasks: string[];
   year: number;
   authors?: string;
+  authorUrl?: string;
 }
 
 export interface Language {
