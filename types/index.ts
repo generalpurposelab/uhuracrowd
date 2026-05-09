@@ -14,9 +14,17 @@ export interface Language {
   region: string;
   subregion?: string;
   family: string;
+  familyGroup: string;
   speakers: number;
   // [longitude, latitude] for map placement
   coordinates: [number, number];
   hasBenchmark: boolean;
   benchmarks: Benchmark[];
+}
+
+export interface FamilyGroup {
+  name: string;
+  centroid: [number, number];
+  languages: Language[];
+  benchmarkedCount: number;
 }
