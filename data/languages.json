@@ -1,0 +1,840 @@
+[
+  {
+    "id": "amh",
+    "name": "Amharic",
+    "nativeName": "አማርኛ",
+    "iso639_3": "amh",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Afro-Asiatic (Semitic)",
+    "speakers": 35000000,
+    "coordinates": [39.5, 8.5],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "Uhura",
+        "url": "https://uhura.dev",
+        "tasks": ["ARC-Easy", "TruthfulQA"],
+        "year": 2024,
+        "authors": "Bayes et al. / General Purpose, Masakhane"
+      },
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "hau",
+    "name": "Hausa",
+    "nativeName": "Harshen Hausa",
+    "iso639_3": "hau",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Afro-Asiatic (Chadic)",
+    "speakers": 54000000,
+    "coordinates": [9.0, 12.0],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "Uhura",
+        "url": "https://uhura.dev",
+        "tasks": ["ARC-Easy", "TruthfulQA"],
+        "year": 2024,
+        "authors": "Bayes et al. / General Purpose, Masakhane"
+      },
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      },
+      {
+        "name": "Hausa VQA",
+        "url": "https://arxiv.org/abs/2311.05997",
+        "tasks": ["Visual QA"],
+        "year": 2023,
+        "authors": "Abdullahi et al."
+      }
+    ]
+  },
+  {
+    "id": "nso",
+    "name": "Northern Sotho",
+    "nativeName": "Sesotho sa Leboa",
+    "iso639_3": "nso",
+    "region": "Africa",
+    "subregion": "Southern Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 4600000,
+    "coordinates": [29.5, -24.5],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "Uhura",
+        "url": "https://uhura.dev",
+        "tasks": ["ARC-Easy", "TruthfulQA"],
+        "year": 2024,
+        "authors": "Bayes et al. / General Purpose, Masakhane"
+      }
+    ]
+  },
+  {
+    "id": "swa",
+    "name": "Swahili",
+    "nativeName": "Kiswahili",
+    "iso639_3": "swa",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 16000000,
+    "coordinates": [36.8, -6.0],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "Uhura",
+        "url": "https://uhura.dev",
+        "tasks": ["ARC-Easy", "TruthfulQA"],
+        "year": 2024,
+        "authors": "Bayes et al. / General Purpose, Masakhane"
+      },
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "yor",
+    "name": "Yoruba",
+    "nativeName": "Èdè Yorùbá",
+    "iso639_3": "yor",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo",
+    "speakers": 40000000,
+    "coordinates": [3.9, 7.4],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "Uhura",
+        "url": "https://uhura.dev",
+        "tasks": ["ARC-Easy", "TruthfulQA"],
+        "year": 2024,
+        "authors": "Bayes et al. / General Purpose, Masakhane"
+      },
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      },
+      {
+        "name": "IgboNLP NER",
+        "url": "https://github.com/masakhane-io/masakhane-ner",
+        "tasks": ["NER"],
+        "year": 2021,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "zul",
+    "name": "Zulu",
+    "nativeName": "isiZulu",
+    "iso639_3": "zul",
+    "region": "Africa",
+    "subregion": "Southern Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 13600000,
+    "coordinates": [31.0, -29.0],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "Uhura",
+        "url": "https://uhura.dev",
+        "tasks": ["ARC-Easy", "TruthfulQA"],
+        "year": 2024,
+        "authors": "Bayes et al. / General Purpose, Masakhane"
+      },
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "ibo",
+    "name": "Igbo",
+    "nativeName": "Asụsụ Igbo",
+    "iso639_3": "ibo",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo",
+    "speakers": 27000000,
+    "coordinates": [7.5, 5.5],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      },
+      {
+        "name": "Masakhane NER",
+        "url": "https://github.com/masakhane-io/masakhane-ner",
+        "tasks": ["NER"],
+        "year": 2021,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "twi",
+    "name": "Twi (Akan)",
+    "nativeName": "Twi",
+    "iso639_3": "twi",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo (Kwa)",
+    "speakers": 9000000,
+    "coordinates": [-1.5, 7.0],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "wol",
+    "name": "Wolof",
+    "nativeName": "Wolof",
+    "iso639_3": "wol",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo (Atlantic)",
+    "speakers": 5000000,
+    "coordinates": [-14.5, 14.5],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      }
+    ]
+  },
+  {
+    "id": "kin",
+    "name": "Kinyarwanda",
+    "nativeName": "Ikinyarwanda",
+    "iso639_3": "kin",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 9800000,
+    "coordinates": [29.9, -1.9],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "AfriMMLU",
+        "url": "https://github.com/masakhane-io/afrimmlu",
+        "tasks": ["MMLU"],
+        "year": 2024,
+        "authors": "Adelani et al."
+      },
+      {
+        "name": "Masakhane MT",
+        "url": "https://github.com/masakhane-io/masakhane-mt",
+        "tasks": ["Machine Translation"],
+        "year": 2020,
+        "authors": "Nekoto et al."
+      }
+    ]
+  },
+  {
+    "id": "orm",
+    "name": "Oromo",
+    "nativeName": "Afaan Oromoo",
+    "iso639_3": "orm",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Afro-Asiatic (Cushitic)",
+    "speakers": 37000000,
+    "coordinates": [39.0, 7.0],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "som",
+    "name": "Somali",
+    "nativeName": "Soomaali",
+    "iso639_3": "som",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Afro-Asiatic (Cushitic)",
+    "speakers": 22000000,
+    "coordinates": [46.0, 5.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "mal",
+    "name": "Malagasy",
+    "nativeName": "Malagasy",
+    "iso639_3": "mlg",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Austronesian",
+    "speakers": 18000000,
+    "coordinates": [46.9, -19.0],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "sna",
+    "name": "Shona",
+    "nativeName": "chiShona",
+    "iso639_3": "sna",
+    "region": "Africa",
+    "subregion": "Southern Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 10800000,
+    "coordinates": [31.0, -19.0],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "nya",
+    "name": "Chichewa",
+    "nativeName": "Chichewa",
+    "iso639_3": "nya",
+    "region": "Africa",
+    "subregion": "Southern Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 12000000,
+    "coordinates": [34.3, -13.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "lin",
+    "name": "Lingala",
+    "nativeName": "Lingála",
+    "iso639_3": "lin",
+    "region": "Africa",
+    "subregion": "Central Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 70000000,
+    "coordinates": [24.0, 0.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "ful",
+    "name": "Fula (Fulfulde)",
+    "nativeName": "Fulfulde",
+    "iso639_3": "ful",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo (Atlantic)",
+    "speakers": 25000000,
+    "coordinates": [-5.0, 12.0],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "mos",
+    "name": "Mossi (Mooré)",
+    "nativeName": "Mooré",
+    "iso639_3": "mos",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo (Gur)",
+    "speakers": 8000000,
+    "coordinates": [-1.5, 12.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "hat",
+    "name": "Haitian Creole",
+    "nativeName": "Kreyòl ayisyen",
+    "iso639_3": "hat",
+    "region": "Americas",
+    "subregion": "Caribbean",
+    "family": "French Creole",
+    "speakers": 12000000,
+    "coordinates": [-72.3, 18.9],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "que",
+    "name": "Quechua",
+    "nativeName": "Runa Simi",
+    "iso639_3": "que",
+    "region": "Americas",
+    "subregion": "South America",
+    "family": "Quechuan",
+    "speakers": 8900000,
+    "coordinates": [-72.0, -13.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "aym",
+    "name": "Aymara",
+    "nativeName": "Aymar aru",
+    "iso639_3": "aym",
+    "region": "Americas",
+    "subregion": "South America",
+    "family": "Aymaran",
+    "speakers": 1700000,
+    "coordinates": [-68.0, -16.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "grn",
+    "name": "Guaraní",
+    "nativeName": "Avañe'ẽ",
+    "iso639_3": "grn",
+    "region": "Americas",
+    "subregion": "South America",
+    "family": "Tupian",
+    "speakers": 6500000,
+    "coordinates": [-57.5, -23.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "nav",
+    "name": "Navajo",
+    "nativeName": "Diné bizaad",
+    "iso639_3": "nav",
+    "region": "Americas",
+    "subregion": "North America",
+    "family": "Na-Dené (Athabaskan)",
+    "speakers": 170000,
+    "coordinates": [-108.5, 36.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "haw",
+    "name": "Hawaiian",
+    "nativeName": "ʻŌlelo Hawaiʻi",
+    "iso639_3": "haw",
+    "region": "Oceania",
+    "subregion": "Polynesia",
+    "family": "Austronesian (Polynesian)",
+    "speakers": 24000,
+    "coordinates": [-157.8, 21.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "mao",
+    "name": "Māori",
+    "nativeName": "Te Reo Māori",
+    "iso639_3": "mri",
+    "region": "Oceania",
+    "subregion": "Polynesia",
+    "family": "Austronesian (Polynesian)",
+    "speakers": 57000,
+    "coordinates": [173.0, -41.0],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "smo",
+    "name": "Samoan",
+    "nativeName": "Gagana Sāmoa",
+    "iso639_3": "smo",
+    "region": "Oceania",
+    "subregion": "Polynesia",
+    "family": "Austronesian (Polynesian)",
+    "speakers": 510000,
+    "coordinates": [-172.0, -13.8],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "fij",
+    "name": "Fijian",
+    "nativeName": "Vosa Vakaviti",
+    "iso639_3": "fij",
+    "region": "Oceania",
+    "subregion": "Melanesia",
+    "family": "Austronesian",
+    "speakers": 330000,
+    "coordinates": [178.0, -18.0],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "sin",
+    "name": "Sinhala",
+    "nativeName": "සිංහල",
+    "iso639_3": "sin",
+    "region": "Asia",
+    "subregion": "South Asia",
+    "family": "Indo-European (Indo-Aryan)",
+    "speakers": 17000000,
+    "coordinates": [80.7, 7.9],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "nep",
+    "name": "Nepali",
+    "nativeName": "नेपाली",
+    "iso639_3": "nep",
+    "region": "Asia",
+    "subregion": "South Asia",
+    "family": "Indo-European (Indo-Aryan)",
+    "speakers": 16000000,
+    "coordinates": [84.1, 28.3],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "IndicGLUE",
+        "url": "https://indicnlp.ai4bharat.org/indic-glue/",
+        "tasks": ["NLI", "Sentiment", "QA"],
+        "year": 2022,
+        "authors": "Kakwani et al."
+      }
+    ]
+  },
+  {
+    "id": "khm",
+    "name": "Khmer",
+    "nativeName": "ភាសាខ្មែរ",
+    "iso639_3": "khm",
+    "region": "Asia",
+    "subregion": "Southeast Asia",
+    "family": "Austroasiatic (Mon-Khmer)",
+    "speakers": 16000000,
+    "coordinates": [104.9, 12.6],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "mya",
+    "name": "Burmese",
+    "nativeName": "မြန်မာဘာသာ",
+    "iso639_3": "mya",
+    "region": "Asia",
+    "subregion": "Southeast Asia",
+    "family": "Sino-Tibetan",
+    "speakers": 33000000,
+    "coordinates": [96.2, 19.7],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "mon",
+    "name": "Mongolian",
+    "nativeName": "Монгол хэл",
+    "iso639_3": "mon",
+    "region": "Asia",
+    "subregion": "Central Asia",
+    "family": "Mongolic",
+    "speakers": 5200000,
+    "coordinates": [102.0, 46.8],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "kaz",
+    "name": "Kazakh",
+    "nativeName": "Қазақ тілі",
+    "iso639_3": "kaz",
+    "region": "Asia",
+    "subregion": "Central Asia",
+    "family": "Turkic",
+    "speakers": 13000000,
+    "coordinates": [68.0, 48.0],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "KazNLP",
+        "url": "https://github.com/IS2AI/KazNLP",
+        "tasks": ["NER", "Sentiment", "QA"],
+        "year": 2022,
+        "authors": "Yeshpanov et al."
+      }
+    ]
+  },
+  {
+    "id": "uzb",
+    "name": "Uzbek",
+    "nativeName": "O'zbek tili",
+    "iso639_3": "uzb",
+    "region": "Asia",
+    "subregion": "Central Asia",
+    "family": "Turkic",
+    "speakers": 35000000,
+    "coordinates": [63.0, 41.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "tgk",
+    "name": "Tajik",
+    "nativeName": "Тоҷикӣ",
+    "iso639_3": "tgk",
+    "region": "Asia",
+    "subregion": "Central Asia",
+    "family": "Indo-European (Iranian)",
+    "speakers": 8100000,
+    "coordinates": [71.3, 38.6],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "tat",
+    "name": "Tatar",
+    "nativeName": "Татар теле",
+    "iso639_3": "tat",
+    "region": "Europe",
+    "subregion": "Eastern Europe",
+    "family": "Turkic",
+    "speakers": 5300000,
+    "coordinates": [52.0, 55.8],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "bre",
+    "name": "Breton",
+    "nativeName": "Brezhoneg",
+    "iso639_3": "bre",
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "family": "Indo-European (Celtic)",
+    "speakers": 210000,
+    "coordinates": [-3.5, 48.2],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "wel",
+    "name": "Welsh",
+    "nativeName": "Cymraeg",
+    "iso639_3": "cym",
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "family": "Indo-European (Celtic)",
+    "speakers": 900000,
+    "coordinates": [-3.8, 52.1],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "OSCAR Welsh NLP",
+        "url": "https://huggingface.co/datasets/oscar-corpus/OSCAR-2301",
+        "tasks": ["Language Modeling"],
+        "year": 2023,
+        "authors": "Ortiz Suárez et al."
+      }
+    ]
+  },
+  {
+    "id": "gle",
+    "name": "Irish",
+    "nativeName": "Gaeilge",
+    "iso639_3": "gle",
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "family": "Indo-European (Celtic)",
+    "speakers": 170000,
+    "coordinates": [-8.2, 53.1],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "bsq",
+    "name": "Basque",
+    "nativeName": "Euskara",
+    "iso639_3": "eus",
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "family": "Language isolate",
+    "speakers": 750000,
+    "coordinates": [-2.0, 43.0],
+    "hasBenchmark": true,
+    "benchmarks": [
+      {
+        "name": "EusQA",
+        "url": "https://huggingface.co/datasets/HiTZ/EusQA",
+        "tasks": ["QA"],
+        "year": 2023,
+        "authors": "de Lacalle et al."
+      }
+    ]
+  },
+  {
+    "id": "kat",
+    "name": "Georgian",
+    "nativeName": "ქართული",
+    "iso639_3": "kat",
+    "region": "Asia",
+    "subregion": "Caucasus",
+    "family": "Kartvelian",
+    "speakers": 4000000,
+    "coordinates": [44.0, 42.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "arm",
+    "name": "Armenian",
+    "nativeName": "Հայերեն",
+    "iso639_3": "hye",
+    "region": "Asia",
+    "subregion": "Caucasus",
+    "family": "Indo-European",
+    "speakers": 6700000,
+    "coordinates": [45.0, 40.1],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "sun",
+    "name": "Sundanese",
+    "nativeName": "Basa Sunda",
+    "iso639_3": "sun",
+    "region": "Asia",
+    "subregion": "Southeast Asia",
+    "family": "Austronesian",
+    "speakers": 40000000,
+    "coordinates": [107.6, -6.9],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "ceb",
+    "name": "Cebuano",
+    "nativeName": "Sinugbuanong Binisayâ",
+    "iso639_3": "ceb",
+    "region": "Asia",
+    "subregion": "Southeast Asia",
+    "family": "Austronesian",
+    "speakers": 27000000,
+    "coordinates": [124.0, 10.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "ilo",
+    "name": "Ilocano",
+    "nativeName": "Pagsasao nga Ilokano",
+    "iso639_3": "ilo",
+    "region": "Asia",
+    "subregion": "Southeast Asia",
+    "family": "Austronesian",
+    "speakers": 9800000,
+    "coordinates": [120.6, 17.6],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "sin2",
+    "name": "Sindhi",
+    "nativeName": "سنڌي",
+    "iso639_3": "snd",
+    "region": "Asia",
+    "subregion": "South Asia",
+    "family": "Indo-European (Indo-Aryan)",
+    "speakers": 25000000,
+    "coordinates": [68.4, 26.2],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "pus",
+    "name": "Pashto",
+    "nativeName": "پښتو",
+    "iso639_3": "pus",
+    "region": "Asia",
+    "subregion": "South Asia",
+    "family": "Indo-European (Iranian)",
+    "speakers": 40000000,
+    "coordinates": [65.0, 34.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "yor2",
+    "name": "Tigrinya",
+    "nativeName": "ትግርኛ",
+    "iso639_3": "tir",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Afro-Asiatic (Semitic)",
+    "speakers": 9500000,
+    "coordinates": [38.9, 15.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "lug",
+    "name": "Luganda",
+    "nativeName": "Oluganda",
+    "iso639_3": "lug",
+    "region": "Africa",
+    "subregion": "East Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 5600000,
+    "coordinates": [32.5, 0.3],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "aka",
+    "name": "Akan",
+    "nativeName": "Akan",
+    "iso639_3": "aka",
+    "region": "Africa",
+    "subregion": "West Africa",
+    "family": "Niger-Congo (Kwa)",
+    "speakers": 11000000,
+    "coordinates": [-1.2, 7.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  },
+  {
+    "id": "tso",
+    "name": "Tsonga",
+    "nativeName": "Xitsonga",
+    "iso639_3": "tso",
+    "region": "Africa",
+    "subregion": "Southern Africa",
+    "family": "Niger-Congo (Bantu)",
+    "speakers": 7100000,
+    "coordinates": [32.0, -23.5],
+    "hasBenchmark": false,
+    "benchmarks": []
+  }
+]
