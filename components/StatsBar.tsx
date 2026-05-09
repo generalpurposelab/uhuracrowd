@@ -43,10 +43,10 @@ export default function StatsBar({ languages }: StatsBarProps) {
   const totalBenchmarks = languages.reduce((sum, l) => sum + l.benchmarks.length, 0);
   const pct             = Math.round((withBenchmark / total) * 100);
 
-  const countTotal      = useCountUp(total,           700,   80);
-  const countWith       = useCountUp(withBenchmark,   700,  160);
-  const countMissing    = useCountUp(missing,          700,  240);
-  const countBenchmarks = useCountUp(totalBenchmarks,  700,  320);
+  const countTotal      = useCountUp(total,           1800,   80);
+  const countWith       = useCountUp(withBenchmark,   1800,  160);
+  const countMissing    = useCountUp(missing,          1800,  240);
+  const countBenchmarks = useCountUp(totalBenchmarks,  1800,  320);
 
   return (
     <div className="flex items-center gap-6 flex-wrap">
