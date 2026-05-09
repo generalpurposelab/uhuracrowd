@@ -49,6 +49,23 @@ function familyRadius(group: FamilyGroup): number {
   return Math.max(10, Math.min(22, 8 + group.languages.length * 1.2));
 }
 
+function radialLabel(
+  langCoords: [number, number],
+  centroid: [number, number],
+  dist = 18
+): { lx: number; ly: number; anchor: "start" | "end" | "middle" } {
+  const dx = langCoords[0] - centroid[0];
+  const dy = -(langCoords[1] - centroid[1]); // flip: lat up = SVG y down
+  const len = Math.sqrt(dx * dx + dy * dy);
+  // If too close to centroid, default to above
+  if (len < 0.5) return { lx: 0, ly: -dist, anchor: "middle" };
+  const lx = (dx / len) * dist;
+  const ly = -(dy / len) * dist; // back to SVG space
+  const anchor: "start" | "end" | "middle" =
+    lx > 4 ? "start" : lx < -4 ? "end" : "middle";
+  return { lx, ly, anchor };
+}
+
 export default function WorldMap({
   languages,
   onSelectLanguage,
@@ -217,6 +234,19 @@ export default function WorldMap({
 
                 return group.languages.map((lang) => {
                   const isSelected = selectedLanguage?.id === lang.id;
+                  const { lx, ly, anchor } = radialLabel(
+                    lang.coordinates,
+                    group.centroid,
+                    20
+                  );
+                  const dotR = isSelected ? 8 : 5;
+                  // Leader line starts at dot edge, ends near label
+                  const lineLen = Math.sqrt(lx * lx + ly * ly);
+                  const x1 = (lx / lineLen) * (dotR + 1);
+                  const y1 = (ly / lineLen) * (dotR + 1);
+                  const x2 = lx * 0.75;
+                  const y2 = ly * 0.75;
+
                   return (
                     <Marker
                       key={lang.id}
@@ -231,7 +261,7 @@ export default function WorldMap({
                       style={{ cursor: "pointer" }}
                     >
                       <circle
-                        r={isSelected ? 8 : 5}
+                        r={dotR}
                         fill={
                           isSelected
                             ? "#f59e0b"
@@ -250,11 +280,18 @@ export default function WorldMap({
                           transition: "all 0.15s ease",
                         }}
                       />
+                      <line
+                        x1={x1} y1={y1} x2={x2} y2={y2}
+                        stroke="#475569"
+                        strokeWidth={0.8}
+                        strokeLinecap="round"
+                      />
                       <text
-                        textAnchor="middle"
-                        y={-8}
+                        x={lx}
+                        y={ly + 3}
+                        textAnchor={anchor}
                         style={{
-                          fontSize: 7,
+                          fontSize: 7.5,
                           fill: "#cbd5e1",
                           pointerEvents: "none",
                           fontFamily: "sans-serif",
