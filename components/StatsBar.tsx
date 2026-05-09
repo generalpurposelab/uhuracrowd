@@ -54,6 +54,7 @@ export default function StatsBar({ languages }: StatsBarProps) {
       <Stat value={countWith}       label="have benchmarks"    color="#22c55e" />
       <Stat value={countMissing}    label="need benchmarks"    color="#ef4444" />
       <Stat value={countBenchmarks} label="benchmarks mapped"  color="#9A8B7A" />
+      <span className="text-xs" style={{ color: "#3D3028" }}>1M+ speakers</span>
 
       <div className="hidden sm:flex items-center gap-2 ml-auto">
         <div className="text-xs" style={{ color: "#6B5F52" }}>{pct}% covered</div>
