@@ -54,7 +54,7 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
               style={
                 language.hasBenchmark
                   ? { background: "rgba(34,197,94,0.1)", color: "#22c55e" }
-                  : { background: "rgba(224,120,50,0.1)", color: "#E07832" }
+                  : { background: "rgba(239,68,68,0.1)", color: "#ef4444" }
               }
             >
               {language.hasBenchmark ? `${language.benchmarks.length} found` : "None yet"}
@@ -96,7 +96,7 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
               ))}
             </div>
           ) : (
-            <div className="rounded-lg p-4 text-center border" style={{ background: "rgba(224,120,50,0.04)", borderColor: "rgba(224,120,50,0.15)" }}>
+            <div className="rounded-lg p-4 text-center border" style={{ background: "rgba(239,68,68,0.04)", borderColor: "rgba(239,68,68,0.15)" }}>
               <p className="text-sm" style={{ color: "#9A8B7A" }}>
                 No benchmark exists yet for {language.name}.
               </p>

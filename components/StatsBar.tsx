@@ -17,7 +17,7 @@ export default function StatsBar({ languages }: StatsBarProps) {
     <div className="flex items-center gap-6 flex-wrap">
       <Stat value={total} label="languages tracked" color="#F0EDE8" />
       <Stat value={withBenchmark} label="have benchmarks" color="#22c55e" />
-      <Stat value={missing} label="need benchmarks" color="#E07832" />
+      <Stat value={missing} label="need benchmarks" color="#ef4444" />
       <Stat value={totalBenchmarks} label="benchmarks mapped" color="#9A8B7A" />
 
       <div className="hidden sm:flex items-center gap-2 ml-auto">

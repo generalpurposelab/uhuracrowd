@@ -40,7 +40,7 @@ function computeFamilyGroups(languages: Language[]): FamilyGroup[] {
 }
 
 function familyColor(group: FamilyGroup): string {
-  if (group.benchmarkedCount === 0) return "#f97316";
+  if (group.benchmarkedCount === 0) return "#ef4444";
   if (group.benchmarkedCount === group.languages.length) return "#22c55e";
   return "#f59e0b";
 }
@@ -268,7 +268,7 @@ export default function WorldMap({
                             ? "#F0EDE8"
                             : lang.hasBenchmark
                             ? "#22c55e"
-                            : "#E07832"
+                            : "#ef4444"
                         }
                         stroke={isSelected ? "#E07832" : "rgba(0,0,0,0.4)"}
                         strokeWidth={isSelected ? 2 : 1}
@@ -277,7 +277,7 @@ export default function WorldMap({
                             ? "drop-shadow(0 0 6px #E07832)"
                             : lang.hasBenchmark
                             ? "drop-shadow(0 0 3px #16a34a)"
-                            : "drop-shadow(0 0 3px #E07832)",
+                            : "drop-shadow(0 0 3px #ef4444)",
                           transition: "all 0.15s ease",
                         }}
                       />
@@ -311,7 +311,7 @@ export default function WorldMap({
         {[
           { color: "#22c55e", label: "All benchmarked" },
           { color: "#E07832", label: "Partial" },
-          { color: "#f97316", label: "None yet" },
+          { color: "#ef4444", label: "None yet" },
         ].map(({ color, label }) => (
           <span key={label} className="flex items-center gap-1.5" style={{ color: "#9A8B7A" }}>
             <span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />
