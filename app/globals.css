@@ -31,3 +31,23 @@ body {
   background-image: radial-gradient(circle, rgba(240, 237, 232, 0.05) 1px, transparent 1px);
   background-size: 10px 10px;
 }
+
+/* ── Motion ── */
+
+/* Map dot bloom — spring curve baked into easing, no extra keyframe needed */
+@keyframes dotReveal {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Leader lines + labels sequential fade */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Stat progress bar scaleX from left — GPU only, no layout */
+@keyframes barFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
