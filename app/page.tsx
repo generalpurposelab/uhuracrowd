@@ -241,7 +241,7 @@ function EmptyPanel({ onSubmit }: { onSubmit: () => void }) {
       <div className="p-5 flex flex-col gap-3">
         <Legend color="#22c55e" label="All languages benchmarked" />
         <Legend color="#E07832" label="Some benchmarked" />
-        <Legend color="#f97316" label="No benchmarks yet" />
+        <Legend color="#ef4444" label="No benchmarks yet" />
         <div className="pt-2 border-t" style={{ borderColor: "#2A2420" }}>
           <p className="text-xs mb-3" style={{ color: "#6B5F52" }}>
             Know of a benchmark we&apos;ve missed?

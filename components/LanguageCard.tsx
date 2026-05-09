@@ -42,7 +42,7 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
           <div className="flex items-center gap-2">
             <span
               className="inline-block w-2 h-2 rounded-full flex-shrink-0"
-              style={{ background: language.hasBenchmark ? "#22c55e" : "#E07832" }}
+              style={{ background: language.hasBenchmark ? "#22c55e" : "#ef4444" }}
             />
             <span className="font-medium text-sm truncate" style={{ color: "#F0EDE8" }}>
               {language.name}
