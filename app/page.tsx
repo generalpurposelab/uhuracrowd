@@ -243,25 +243,16 @@ function EmptyPanel({
   onFilterChange: (f: MapFilter) => void;
   onSubmit: () => void;
 }) {
-  const familyMap: Record<string, Language[]> = {};
-  languages.forEach((l) => {
-    if (!familyMap[l.familyGroup]) familyMap[l.familyGroup] = [];
-    familyMap[l.familyGroup].push(l);
-  });
-  const allLangs     = Object.values(familyMap).filter((langs) => langs.every((l) => l.hasBenchmark)).flat().length;
-  const partialLangs = Object.values(familyMap).filter((langs) => { const n = langs.filter((l) => l.hasBenchmark).length; return n > 0 && n < langs.length; }).flat().length;
-  const noneLangs    = Object.values(familyMap).filter((langs) => langs.every((l) => !l.hasBenchmark)).flat().length;
-
-  const filters: { key: MapFilter; color: string; label: string; count: number }[] = [
-    { key: "benchmarked", color: "#22c55e", label: "All benchmarked",   count: allLangs },
-    { key: "partial",     color: "#f59e0b", label: "Partially covered", count: partialLangs },
-    { key: "none",        color: "#ef4444", label: "No benchmarks yet", count: noneLangs },
+  const filters: { key: MapFilter; color: string; label: string }[] = [
+    { key: "benchmarked", color: "#22c55e", label: "All benchmarked"   },
+    { key: "partial",     color: "#f59e0b", label: "Partially covered" },
+    { key: "none",        color: "#ef4444", label: "No benchmarks yet" },
   ];
 
   return (
     <div className="rounded-xl border overflow-hidden" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
       <div className="p-5 flex flex-col gap-2">
-        {filters.map(({ key, color, label, count }) => {
+        {filters.map(({ key, color, label }) => {
           const active = mapFilter === key;
           return (
             <button
@@ -276,8 +267,7 @@ function EmptyPanel({
             >
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: color }} />
               <span className="flex-1 text-xs font-medium" style={{ color: active ? "#F0EDE8" : "#9A8B7A" }}>{label}</span>
-              <span className="text-xs tabular-nums" style={{ color: active ? color : "#6B5F52" }}>{count}</span>
-              {active && <span className="text-xs font-bold ml-1" style={{ color: "#6B5F52" }}>×</span>}
+              {active && <span className="text-xs font-bold" style={{ color: "#6B5F52" }}>×</span>}
             </button>
           );
         })}
