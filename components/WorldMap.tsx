@@ -233,6 +233,16 @@ export default function WorldMap({
                   );
                 }
 
+                // Pre-compute max distance once per group for stagger normalisation
+                const maxDist = Math.max(
+                  ...group.languages.map((l) => {
+                    const ldx = l.coordinates[0] - group.centroid[0];
+                    const ldy = l.coordinates[1] - group.centroid[1];
+                    return Math.sqrt(ldx * ldx + ldy * ldy);
+                  }),
+                  1
+                );
+
                 return group.languages.map((lang) => {
                   const isSelected = selectedLanguage?.id === lang.id;
                   const { lx, ly, anchor } = radialLabel(
@@ -241,12 +251,17 @@ export default function WorldMap({
                     20
                   );
                   const dotR = isSelected ? 8 : 5;
-                  // Leader line starts at dot edge, ends near label
                   const lineLen = Math.sqrt(lx * lx + ly * ly);
                   const x1 = (lx / lineLen) * (dotR + 1);
                   const y1 = (ly / lineLen) * (dotR + 1);
                   const x2 = lx * 0.75;
                   const y2 = ly * 0.75;
+
+                  // Distance-based stagger: centroid-closest dots bloom first
+                  const dx = lang.coordinates[0] - group.centroid[0];
+                  const dy = lang.coordinates[1] - group.centroid[1];
+                  const dist = Math.sqrt(dx * dx + dy * dy);
+                  const staggerMs = Math.round((dist / maxDist) * 260);
 
                   return (
                     <Marker
@@ -273,12 +288,18 @@ export default function WorldMap({
                         stroke={isSelected ? "#E07832" : "rgba(0,0,0,0.4)"}
                         strokeWidth={isSelected ? 2 : 1}
                         style={{
+                          // Spring curve: overshoot baked into cubic-bezier
+                          animation: `dotReveal 480ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerMs}ms both`,
+                          // fill-box makes transform-origin relative to the element,
+                          // not the SVG viewport — essential for correct scale origin
+                          transformBox: "fill-box",
+                          transformOrigin: "50% 50%",
                           filter: isSelected
                             ? "drop-shadow(0 0 6px #E07832)"
                             : lang.hasBenchmark
                             ? "drop-shadow(0 0 3px #16a34a)"
                             : "drop-shadow(0 0 3px #ef4444)",
-                          transition: "all 0.15s ease",
+                          transition: "r 0.15s ease, filter 0.15s ease",
                         }}
                       />
                       <line
@@ -286,12 +307,16 @@ export default function WorldMap({
                         stroke="#475569"
                         strokeWidth={0.8}
                         strokeLinecap="round"
+                        style={{
+                          animation: `fadeIn 300ms ease-out ${staggerMs + 160}ms both`,
+                        }}
                       />
                       <text
                         x={lx}
                         y={ly + 3}
                         textAnchor={anchor}
                         style={{
+                          animation: `fadeIn 300ms ease-out ${staggerMs + 220}ms both`,
                           fontSize: 7.5,
                           fill: "#cbd5e1",
                           pointerEvents: "none",
