@@ -1,24 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #13100D;
-  --foreground: #F0EDE8;
+  --bg-base: #13100D;
+  --bg-surface: #1A1512;
+  --bg-elevated: #2A2420;
+  --border: #2A2420;
+  --text-primary: #F0EDE8;
+  --text-secondary: #9A8B7A;
+  --text-muted: #6B5F52;
+  --text-faint: #3D3028;
   --brand-orange: #E07832;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-playfair);
 }
 
+[data-theme="light"] {
+  --bg-base: #FAF7F4;
+  --bg-surface: #F0EBE5;
+  --bg-elevated: #E8DDD5;
+  --border: #DDD5CC;
+  --text-primary: #1A1512;
+  --text-secondary: #5C4E42;
+  --text-muted: #9A8B7A;
+  --text-faint: #C4B8AA;
+}
+
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-base);
+  color: var(--text-primary);
 }
 
 /* Brand dot-grid texture */
@@ -28,7 +45,7 @@ body {
 }
 
 .dot-grid-faint {
-  background-image: radial-gradient(circle, rgba(240, 237, 232, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--text-primary) 5%, transparent) 1px, transparent 1px);
   background-size: 10px 10px;
 }
 

@@ -25,10 +25,10 @@ const COMMON_TASKS = [
   "Sentiment Analysis", "QA", "NLI", "Language Modeling", "Visual QA",
 ];
 
-const inputStyle = {
-  background: "#1A1512",
-  border: "1px solid #2A2420",
-  color: "#F0EDE8",
+const inputStyle: React.CSSProperties = {
+  background: "var(--bg-surface)",
+  border: "1px solid var(--border)",
+  color: "var(--text-primary)",
   borderRadius: "0.5rem",
   padding: "0.5rem 0.75rem",
   fontSize: "0.875rem",
@@ -70,12 +70,12 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
   if (submitted) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)" }}>
-        <div className="rounded-2xl p-8 max-w-md w-full text-center border" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
+        <div className="rounded-2xl p-8 max-w-md w-full text-center border" style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(224,120,50,0.1)" }}>
             <span style={{ color: "#E07832", fontSize: "1.5rem" }}>✓</span>
           </div>
-          <h2 className="text-xl font-semibold mb-2" style={{ color: "#F0EDE8" }}>Thanks for contributing!</h2>
-          <p className="text-sm mb-6" style={{ color: "#9A8B7A" }}>
+          <h2 className="text-xl font-semibold mb-2" style={{ color: "var(--text-primary)" }}>Thanks for contributing!</h2>
+          <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
             Your submission for{" "}
             <span style={{ color: "#E07832" }}>
               {languages.find((l) => l.id === form.languageId)?.name}
@@ -96,13 +96,13 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)" }}>
-      <div className="rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto border" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
+      <div className="rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto border" style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}>
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="text-lg font-semibold" style={{ color: "#F0EDE8" }}>Submit a benchmark</h2>
-            <p className="text-sm mt-0.5" style={{ color: "#6B5F52" }}>Help map LLM research for low-resource languages</p>
+            <h2 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>Submit a benchmark</h2>
+            <p className="text-sm mt-0.5" style={{ color: "var(--text-muted)" }}>Help map LLM research for low-resource languages</p>
           </div>
-          <button onClick={onClose} className="text-2xl leading-none" style={{ color: "#6B5F52" }}>×</button>
+          <button onClick={onClose} className="text-2xl leading-none" style={{ color: "var(--text-muted)" }}>×</button>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -138,7 +138,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
                   style={
                     selectedTasks.includes(task)
                       ? { background: "#E07832", borderColor: "#E07832", color: "#13100D", fontWeight: 600 }
-                      : { borderColor: "#2A2420", color: "#9A8B7A" }
+                      : { borderColor: "var(--border)", color: "var(--text-secondary)" }
                   }
                 >
                   {task}
@@ -163,7 +163,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
             <input type="url" value={form.authorUrl} onChange={set("authorUrl")}
               placeholder="GitHub, personal site, Google Scholar..."
               style={inputStyle} />
-            <p className="text-xs mt-1.5" style={{ color: "#6B5F52" }}>
+            <p className="text-xs mt-1.5" style={{ color: "var(--text-muted)" }}>
               Shown on the benchmark card — makes you discoverable to collaborators.
             </p>
           </Field>
@@ -172,14 +172,14 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
             <button
               type="button" onClick={onClose}
               className="flex-1 py-2 px-4 text-sm font-medium rounded-lg"
-              style={{ background: "#2A2420", color: "#9A8B7A" }}
+              style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)" }}
             >
               Cancel
             </button>
             <button
               type="submit" disabled={!isValid}
               className="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors"
-              style={{ background: isValid ? "#E07832" : "#2A2420", color: isValid ? "#13100D" : "#6B5F52", cursor: isValid ? "pointer" : "not-allowed" }}
+              style={{ background: isValid ? "#E07832" : "var(--bg-elevated)", color: isValid ? "#13100D" : "var(--text-muted)", cursor: isValid ? "pointer" : "not-allowed" }}
             >
               Submit benchmark
             </button>
@@ -193,7 +193,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="text-xs mb-1 block" style={{ color: "#9A8B7A" }}>{label}</label>
+      <label className="text-xs mb-1 block" style={{ color: "var(--text-secondary)" }}>{label}</label>
       {children}
     </div>
   );

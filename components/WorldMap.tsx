@@ -90,23 +90,23 @@ export default function WorldMap({
   };
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden border" style={{ background: "#0D0B09", borderColor: "#2A2420" }}>
+    <div className="relative w-full rounded-xl overflow-hidden border" style={{ background: "#0D0B09", borderColor: "var(--border)" }}>
       {tooltip && (
         <div
-          className="absolute z-10 pointer-events-none bg-slate-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
-          style={{ left: tooltip.x + 12, top: tooltip.y - 28 }}
+          className="absolute z-10 pointer-events-none text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
+          style={{ left: tooltip.x + 12, top: tooltip.y - 28, background: "var(--bg-elevated)", color: "var(--text-primary)", border: "1px solid var(--border)" }}
         >
           {tooltip.content}
         </div>
       )}
 
       {expandedFamily && (
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs" style={{ background: "rgba(26,21,18,0.95)", border: "1px solid #2A2420", color: "#F0EDE8" }}>
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs" style={{ background: "var(--bg-surface)", border: "1px solid var(--border)", color: "var(--text-primary)" }}>
           <span className="font-medium" style={{ color: "#E07832" }}>{expandedFamily}</span>
           <button
             onClick={() => setExpandedFamily(null)}
             className="ml-1 transition-colors"
-            style={{ color: "#6B5F52" }}
+            style={{ color: "var(--text-muted)" }}
           >
             ← all families
           </button>
@@ -304,14 +304,14 @@ export default function WorldMap({
           { color: "#E07832", label: "Partial" },
           { color: "#ef4444", label: "None yet" },
         ].map(({ color, label }) => (
-          <span key={label} className="flex items-center gap-1.5" style={{ color: "#9A8B7A" }}>
+          <span key={label} className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
             <span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />
             {label}
           </span>
         ))}
       </div>
 
-      <div className="absolute bottom-3 right-3 text-xs" style={{ color: "#3D3028" }}>
+      <div className="absolute bottom-3 right-3 text-xs" style={{ color: "var(--text-faint)" }}>
         {expandedFamily ? "Click a dot to explore" : "Click a bubble to expand"}
       </div>
     </div>

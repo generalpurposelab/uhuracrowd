@@ -16,21 +16,21 @@ function formatSpeakers(n: number): string {
 
 export default function LanguageDetail({ language, onClose, onSubmitBenchmark }: LanguageDetailProps) {
   return (
-    <div className="rounded-xl border flex flex-col gap-4 overflow-hidden" style={{ background: "#1A1512", borderColor: "#2A2420" }}>
+    <div className="rounded-xl border flex flex-col gap-4 overflow-hidden" style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}>
       {/* Header strip */}
-      <div className="dot-grid-faint px-5 pt-5 pb-4 border-b" style={{ borderColor: "#2A2420" }}>
+      <div className="dot-grid-faint px-5 pt-5 pb-4 border-b" style={{ borderColor: "var(--border)" }}>
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h2 className="font-semibold text-lg leading-tight" style={{ color: "#F0EDE8" }}>
+            <h2 className="font-semibold text-lg leading-tight" style={{ color: "var(--text-primary)" }}>
               {language.name}
             </h2>
             {language.nativeName && language.nativeName !== language.name && (
-              <p className="text-sm mt-0.5" style={{ color: "#6B5F52" }}>{language.nativeName}</p>
+              <p className="text-sm mt-0.5" style={{ color: "var(--text-muted)" }}>{language.nativeName}</p>
             )}
           </div>
-          <button onClick={onClose} className="text-lg leading-none transition-colors" style={{ color: "#6B5F52" }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#F0EDE8")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#6B5F52")}
+          <button onClick={onClose} className="text-lg leading-none transition-colors" style={{ color: "var(--text-muted)" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "var(--text-primary)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--text-muted)")}
           >
             ×
           </button>
@@ -48,7 +48,7 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
 
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium" style={{ color: "#9A8B7A" }}>LLM Benchmarks</h3>
+            <h3 className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>LLM Benchmarks</h3>
             <span
               className="text-xs font-medium px-2 py-0.5 rounded-full"
               style={
@@ -70,13 +70,13 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block rounded-lg p-3 border transition-all group"
-                  style={{ background: "#13100D", borderColor: "#2A2420" }}
+                  style={{ background: "var(--bg-base)", borderColor: "var(--border)" }}
                   onMouseEnter={e => (e.currentTarget.style.borderColor = "#22c55e")}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = "#2A2420")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="text-sm font-medium transition-colors" style={{ color: "#F0EDE8" }}>
+                      <p className="text-sm font-medium transition-colors" style={{ color: "var(--text-primary)" }}>
                         {b.name}
                       </p>
                       {b.authors && (
@@ -94,29 +94,29 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
                               {b.authors}
                             </a>
                           ) : (
-                            <span style={{ color: "#6B5F52" }}>{b.authors}</span>
+                            <span style={{ color: "var(--text-muted)" }}>{b.authors}</span>
                           )}
                         </p>
                       )}
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {b.tasks.map((t) => (
-                          <span key={t} className="text-xs px-1.5 py-0.5 rounded" style={{ background: "#2A2420", color: "#9A8B7A" }}>
+                          <span key={t} className="text-xs px-1.5 py-0.5 rounded" style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)" }}>
                             {t}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <span className="text-xs flex-shrink-0" style={{ color: "#6B5F52" }}>{b.year}</span>
+                    <span className="text-xs flex-shrink-0" style={{ color: "var(--text-muted)" }}>{b.year}</span>
                   </div>
                 </a>
               ))}
             </div>
           ) : (
             <div className="rounded-lg p-4 text-center border" style={{ background: "rgba(239,68,68,0.04)", borderColor: "rgba(239,68,68,0.15)" }}>
-              <p className="text-sm" style={{ color: "#9A8B7A" }}>
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 No benchmark exists yet for {language.name}.
               </p>
-              <p className="text-xs mt-1" style={{ color: "#6B5F52" }}>Know of one? Help us map it.</p>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Know of one? Help us map it.</p>
             </div>
           )}
         </div>
@@ -137,9 +137,9 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
 
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg p-3" style={{ background: "#13100D" }}>
-      <p className="text-xs mb-0.5" style={{ color: "#6B5F52" }}>{label}</p>
-      <p className="text-sm" style={{ color: "#F0EDE8" }}>{value}</p>
+    <div className="rounded-lg p-3" style={{ background: "var(--bg-base)" }}>
+      <p className="text-xs mb-0.5" style={{ color: "var(--text-muted)" }}>{label}</p>
+      <p className="text-sm" style={{ color: "var(--text-primary)" }}>{value}</p>
     </div>
   );
 }

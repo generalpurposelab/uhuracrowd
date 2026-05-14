@@ -47,15 +47,15 @@ export default function StatsBar({ languages }: StatsBarProps) {
     <div className="flex items-center gap-4 flex-wrap">
       <div className="flex items-baseline gap-1.5">
         <span className="text-2xl font-bold tabular-nums" style={{ color: "#22c55e" }}>{countWith}</span>
-        <span className="text-2xl font-bold" style={{ color: "#3D3028" }}>/</span>
-        <span className="text-2xl font-bold tabular-nums" style={{ color: "#F0EDE8" }}>{countTotal}</span>
-        <span className="text-xs ml-1" style={{ color: "#6B5F52" }}>languages benchmarked</span>
-        <span className="text-xs ml-2" style={{ color: "#3D3028" }}>1M+ speakers</span>
+        <span className="text-2xl font-bold" style={{ color: "var(--text-faint)" }}>/</span>
+        <span className="text-2xl font-bold tabular-nums" style={{ color: "var(--text-primary)" }}>{countTotal}</span>
+        <span className="text-xs ml-1" style={{ color: "var(--text-muted)" }}>languages benchmarked</span>
+        <span className="text-xs ml-2" style={{ color: "var(--text-faint)" }}>1M+ speakers</span>
       </div>
 
       <div className="flex items-center gap-2 ml-auto">
-        <div className="text-xs" style={{ color: "#6B5F52" }}>{pct}%</div>
-        <div className="w-24 h-1 rounded-full overflow-hidden" style={{ background: "#2A2420" }}>
+        <div className="text-xs" style={{ color: "var(--text-muted)" }}>{pct}%</div>
+        <div className="w-24 h-1 rounded-full overflow-hidden" style={{ background: "var(--bg-elevated)" }}>
           <div
             className="h-full rounded-full"
             style={{

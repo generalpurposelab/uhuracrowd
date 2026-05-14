@@ -22,18 +22,18 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
       style={
         isSelected
           ? { borderColor: "#E07832", background: "rgba(224,120,50,0.08)" }
-          : { borderColor: "#2A2420", background: "#1A1512" }
+          : { borderColor: "var(--border)", background: "var(--bg-surface)" }
       }
       onMouseEnter={e => {
         if (!isSelected) {
-          e.currentTarget.style.borderColor = "#3D3028";
-          e.currentTarget.style.background = "#221D18";
+          e.currentTarget.style.borderColor = "var(--text-faint)";
+          e.currentTarget.style.background = "var(--bg-elevated)";
         }
       }}
       onMouseLeave={e => {
         if (!isSelected) {
-          e.currentTarget.style.borderColor = "#2A2420";
-          e.currentTarget.style.background = "#1A1512";
+          e.currentTarget.style.borderColor = "var(--border)";
+          e.currentTarget.style.background = "var(--bg-surface)";
         }
       }}
     >
@@ -44,16 +44,16 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
               className="inline-block w-2 h-2 rounded-full flex-shrink-0"
               style={{ background: language.hasBenchmark ? "#22c55e" : "#ef4444" }}
             />
-            <span className="font-medium text-sm truncate" style={{ color: "#F0EDE8" }}>
+            <span className="font-medium text-sm truncate" style={{ color: "var(--text-primary)" }}>
               {language.name}
             </span>
             {language.nativeName && language.nativeName !== language.name && (
-              <span className="text-xs truncate" style={{ color: "#6B5F52" }}>
+              <span className="text-xs truncate" style={{ color: "var(--text-muted)" }}>
                 {language.nativeName}
               </span>
             )}
           </div>
-          <div className="mt-0.5 flex items-center gap-2 text-xs" style={{ color: "#6B5F52" }}>
+          <div className="mt-0.5 flex items-center gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
             <span>{language.subregion || language.region}</span>
             <span>·</span>
             <span>{formatSpeakers(language.speakers)} speakers</span>
@@ -65,7 +65,7 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
               {language.benchmarks.length} {language.benchmarks.length === 1 ? "benchmark" : "benchmarks"}
             </span>
           ) : (
-            <span className="text-xs" style={{ color: "#6B5F52" }}>none yet</span>
+            <span className="text-xs" style={{ color: "var(--text-muted)" }}>none yet</span>
           )}
         </div>
       </div>

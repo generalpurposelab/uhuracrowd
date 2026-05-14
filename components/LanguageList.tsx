@@ -48,7 +48,7 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
       style={
         filter === f
           ? { background: "#E07832", color: "#13100D" }
-          : { background: "#2A2420", color: "#9A8B7A" }
+          : { background: "var(--bg-elevated)", color: "var(--text-secondary)" }
       }
     >
       {label}
@@ -64,12 +64,12 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
         onChange={(e) => setSearch(e.target.value)}
         className="w-full px-3 py-2 rounded-lg text-sm focus:outline-none"
         style={{
-          background: "#1A1512",
-          border: "1px solid #2A2420",
-          color: "#F0EDE8",
+          background: "var(--bg-surface)",
+          border: "1px solid var(--border)",
+          color: "var(--text-primary)",
         }}
         onFocus={e => (e.currentTarget.style.borderColor = "#E07832")}
-        onBlur={e => (e.currentTarget.style.borderColor = "#2A2420")}
+        onBlur={e => (e.currentTarget.style.borderColor = "var(--border)")}
       />
 
       <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -82,7 +82,7 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
           value={sort}
           onChange={(e) => setSort(e.target.value as SortKey)}
           className="text-xs rounded px-2 py-1 focus:outline-none"
-          style={{ background: "#2A2420", color: "#9A8B7A", border: "1px solid #3D3028" }}
+          style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)", border: "1px solid var(--text-faint)" }}
         >
           <option value="name">Sort: A–Z</option>
           <option value="speakers">Sort: Speakers</option>
@@ -90,7 +90,7 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
         </select>
       </div>
 
-      <p className="text-xs" style={{ color: "#6B5F52" }}>
+      <p className="text-xs" style={{ color: "var(--text-muted)" }}>
         {filtered.length} language{filtered.length !== 1 ? "s" : ""}
       </p>
 
@@ -104,7 +104,7 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
           />
         ))}
         {filtered.length === 0 && (
-          <p className="text-sm text-center py-8" style={{ color: "#6B5F52" }}>
+          <p className="text-sm text-center py-8" style={{ color: "var(--text-muted)" }}>
             No languages match your search.
           </p>
         )}
