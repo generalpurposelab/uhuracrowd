@@ -295,9 +295,8 @@ function EmptyPanel({
   onSubmit: () => void;
 }) {
   const filters: { key: MapFilter; color: string; label: string }[] = [
-    { key: "benchmarked", color: "#22c55e", label: "All benchmarked"   },
-    { key: "partial",     color: "#f59e0b", label: "Partially covered" },
-    { key: "none",        color: "#ef4444", label: "No benchmarks yet" },
+    { key: "benchmarked", color: "#22c55e", label: "Benchmarked"      },
+    { key: "none",        color: "#ef4444", label: "No benchmark yet" },
   ];
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -10,10 +10,9 @@ import {
   Geography as GeographyType,
 } from "react-simple-maps";
 import type { MouseEvent } from "react";
-import { Language, FamilyGroup } from "@/types";
+import { Language } from "@/types";
 
-const GEO_URL =
-  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 type MapFilter = "all" | "benchmarked" | "partial" | "none";
 
@@ -24,40 +23,22 @@ interface WorldMapProps {
   mapFilter?: MapFilter;
 }
 
-function computeFamilyGroups(languages: Language[]): FamilyGroup[] {
-  const groups: Record<string, Language[]> = {};
-  languages.forEach((lang) => {
-    if (!groups[lang.familyGroup]) groups[lang.familyGroup] = [];
-    groups[lang.familyGroup].push(lang);
-  });
-  return Object.entries(groups).map(([name, langs]) => {
-    const lng = langs.reduce((s, l) => s + l.coordinates[0], 0) / langs.length;
-    const lat = langs.reduce((s, l) => s + l.coordinates[1], 0) / langs.length;
-    return {
-      name,
-      centroid: [lng, lat] as [number, number],
-      languages: langs,
-      benchmarkedCount: langs.filter((l) => l.hasBenchmark).length,
-    };
-  });
+// Deterministic jitter so stacked same-centroid languages spread out
+// without changing on re-render
+function seededJitter(seed: string, range: number): [number, number] {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (Math.imul(31, h) + seed.charCodeAt(i)) | 0;
+  const a = ((h >>> 0) / 0xffffffff) * 2 - 1;
+  const b = (((h * 1664525 + 1013904223) >>> 0) / 0xffffffff) * 2 - 1;
+  return [a * range, b * range];
 }
 
-function familyColor(group: FamilyGroup): string {
-  if (group.benchmarkedCount === 0) return "#ef4444";
-  if (group.benchmarkedCount === group.languages.length) return "#22c55e";
-  return "#f59e0b";
-}
-
-function familyRadius(group: FamilyGroup): number {
-  return Math.max(10, Math.min(22, 8 + group.languages.length * 1.2));
-}
-
-
-function familyMatchesFilter(group: FamilyGroup, filter: MapFilter): boolean {
+function langMatchesFilter(lang: Language, filter: MapFilter): boolean {
   if (filter === "all") return true;
-  if (filter === "benchmarked") return group.benchmarkedCount === group.languages.length;
-  if (filter === "partial") return group.benchmarkedCount > 0 && group.benchmarkedCount < group.languages.length;
-  return group.benchmarkedCount === 0; // "none"
+  if (filter === "benchmarked") return lang.hasBenchmark;
+  if (filter === "none") return !lang.hasBenchmark;
+  // "partial" — no direct language-level concept; show all
+  return true;
 }
 
 export default function WorldMap({
@@ -66,50 +47,45 @@ export default function WorldMap({
   selectedLanguage,
   mapFilter = "all",
 }: WorldMapProps) {
-  const [expandedFamily, setExpandedFamily] = useState<string | null>(null);
-  const [tooltip, setTooltip] = useState<{
-    content: string;
-    x: number;
-    y: number;
-  } | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [tooltip, setTooltip] = useState<{ content: string; x: number; y: number } | null>(null);
 
-  const familyGroups = useMemo(() => computeFamilyGroups(languages), [languages]);
+  const getMousePos = useCallback((e: MouseEvent<SVGGElement>) => {
+    const rect = (e.target as SVGElement).closest("svg")?.parentElement?.getBoundingClientRect();
+    return rect ? { x: e.clientX - rect.left, y: e.clientY - rect.top } : null;
+  }, []);
 
-  const handleFamilyClick = (name: string) => {
-    setExpandedFamily((prev) => (prev === name ? null : name));
-    setTooltip(null);
-  };
-
-  const getMousePos = (e: MouseEvent<SVGGElement>) => {
-    const svgContainer = (e.target as SVGElement)
-      .closest("svg")
-      ?.parentElement?.getBoundingClientRect();
-    return svgContainer
-      ? { x: e.clientX - svgContainer.left, y: e.clientY - svgContainer.top }
-      : null;
-  };
+  // Pre-compute jitter offsets so they're stable across renders
+  const jittered = useMemo(() =>
+    languages.map((lang) => {
+      const [jx, jy] = seededJitter(lang.iso639_3, 1.8);
+      return {
+        ...lang,
+        coordinates: [lang.coordinates[0] + jx, lang.coordinates[1] + jy] as [number, number],
+      };
+    }),
+  [languages]);
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden border" style={{ background: "#0D0B09", borderColor: "var(--border)" }}>
+    <div
+      className="relative w-full rounded-xl overflow-hidden border"
+      style={{ background: "#0D0B09", borderColor: "var(--border)" }}
+    >
+      {/* Tooltip */}
       {tooltip && (
         <div
-          className="absolute z-10 pointer-events-none text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
-          style={{ left: tooltip.x + 12, top: tooltip.y - 28, background: "var(--bg-elevated)", color: "var(--text-primary)", border: "1px solid var(--border)" }}
+          className="absolute z-10 pointer-events-none text-xs px-2.5 py-1.5 rounded-lg whitespace-nowrap"
+          style={{
+            left: tooltip.x + 14,
+            top: tooltip.y - 32,
+            background: "rgba(13,11,9,0.92)",
+            color: "#F0EDE8",
+            border: "1px solid rgba(255,255,255,0.08)",
+            backdropFilter: "blur(6px)",
+            letterSpacing: "0.01em",
+          }}
         >
           {tooltip.content}
-        </div>
-      )}
-
-      {expandedFamily && (
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs" style={{ background: "var(--bg-surface)", border: "1px solid var(--border)", color: "var(--text-primary)" }}>
-          <span className="font-medium" style={{ color: "#E07832" }}>{expandedFamily}</span>
-          <button
-            onClick={() => setExpandedFamily(null)}
-            className="ml-1 transition-colors"
-            style={{ color: "var(--text-muted)" }}
-          >
-            ← all families
-          </button>
         </div>
       )}
 
@@ -119,19 +95,19 @@ export default function WorldMap({
         style={{ width: "100%", height: "100%" }}
         height={500}
       >
-        <ZoomableGroup zoom={1} minZoom={1} maxZoom={6}>
+        <ZoomableGroup zoom={1} minZoom={1} maxZoom={8}>
           <Geographies geography={GEO_URL}>
             {({ geographies }: { geographies: GeographyType[] }) =>
               geographies.map((geo: GeographyType) => (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill="#1e293b"
-                  stroke="#334155"
-                  strokeWidth={0.5}
+                  fill="#1a2332"
+                  stroke="#243044"
+                  strokeWidth={0.4}
                   style={{
                     default: { outline: "none" },
-                    hover: { outline: "none", fill: "#273549" },
+                    hover: { outline: "none" },
                     pressed: { outline: "none" },
                   }}
                 />
@@ -139,180 +115,72 @@ export default function WorldMap({
             }
           </Geographies>
 
-          {expandedFamily === null
-            ? /* ── Family bubble markers ── */
-              familyGroups.map((group) => {
-                const r = familyRadius(group);
-                const color = familyColor(group);
-                const dimmed = !familyMatchesFilter(group, mapFilter);
-                return (
-                  <Marker
-                    key={group.name}
-                    coordinates={group.centroid}
-                    onClick={() => !dimmed && handleFamilyClick(group.name)}
-                    onMouseEnter={(e: MouseEvent<SVGGElement>) => {
-                      if (dimmed) return;
-                      const pos = getMousePos(e);
-                      if (pos)
-                        setTooltip({
-                          content: `${group.name} — ${group.languages.length} languages, ${group.benchmarkedCount} benchmarked`,
-                          ...pos,
-                        });
-                    }}
-                    onMouseLeave={() => setTooltip(null)}
-                    style={{ cursor: dimmed ? "default" : "pointer" }}
-                  >
-                    <circle
-                      r={r}
-                      fill={color}
-                      fillOpacity={dimmed ? 0.12 : 0.85}
-                      stroke={color}
-                      strokeOpacity={dimmed ? 0.08 : 0}
-                      strokeWidth={1}
-                      style={dimmed ? {} : { filter: `drop-shadow(0 0 4px ${color})` }}
-                    />
-                    {!dimmed && (
-                      <>
-                        <text
-                          textAnchor="middle"
-                          y={r + 10}
-                          style={{
-                            fontSize: 8,
-                            fill: "#cbd5e1",
-                            pointerEvents: "none",
-                            fontFamily: "sans-serif",
-                          }}
-                        >
-                          {group.name}
-                        </text>
-                        {group.benchmarkedCount > 0 && (
-                          <text
-                            textAnchor="middle"
-                            y={4}
-                            style={{
-                              fontSize: 8,
-                              fill: "#fff",
-                              fontWeight: "bold",
-                              pointerEvents: "none",
-                              fontFamily: "sans-serif",
-                            }}
-                          >
-                            {group.benchmarkedCount}/{group.languages.length}
-                          </text>
-                        )}
-                      </>
-                    )}
-                  </Marker>
-                );
-              })
-            : /* ── Expanded: individual language markers for selected family, dim bubbles for others ── */
-              familyGroups.map((group) => {
-                if (group.name !== expandedFamily) {
-                  const r = familyRadius(group);
-                  const color = familyColor(group);
-                  return (
-                    <Marker
-                      key={group.name}
-                      coordinates={group.centroid}
-                      onClick={() => handleFamilyClick(group.name)}
-                      onMouseEnter={(e: MouseEvent<SVGGElement>) => {
-                        const pos = getMousePos(e);
-                        if (pos)
-                          setTooltip({ content: group.name, ...pos });
-                      }}
-                      onMouseLeave={() => setTooltip(null)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <circle
-                        r={r * 0.7}
-                        fill={color}
-                        fillOpacity={0.3}
-                        stroke={color}
-                        strokeWidth={1}
-                        strokeOpacity={0.4}
-                      />
-                    </Marker>
-                  );
-                }
+          {jittered.map((lang) => {
+            const isSelected = selectedLanguage?.id === lang.id;
+            const isHovered = hoveredId === lang.id;
+            const matches = langMatchesFilter(lang, mapFilter);
+            const dimmed = !matches && mapFilter !== "all";
 
-                // Pre-compute max distance once per group for stagger normalisation
-                const maxDist = Math.max(
-                  ...group.languages.map((l) => {
-                    const ldx = l.coordinates[0] - group.centroid[0];
-                    const ldy = l.coordinates[1] - group.centroid[1];
-                    return Math.sqrt(ldx * ldx + ldy * ldy);
-                  }),
-                  1
-                );
+            const r = isSelected ? 5.5 : isHovered ? 4.5 : 3;
+            const fill = lang.hasBenchmark ? "#22c55e" : "#ef4444";
+            const opacity = dimmed ? 0.08 : isSelected || isHovered ? 1 : 0.75;
 
-                return group.languages.map((lang) => {
-                  const isSelected = selectedLanguage?.id === lang.id;
-                  const dotR = isSelected ? 8 : 5;
-
-                  // Distance-based stagger: centroid-closest dots bloom first
-                  const dx = lang.coordinates[0] - group.centroid[0];
-                  const dy = lang.coordinates[1] - group.centroid[1];
-                  const dist = Math.sqrt(dx * dx + dy * dy);
-                  const staggerMs = Math.round((dist / maxDist) * 260);
-
-                  return (
-                    <Marker
-                      key={lang.id}
-                      coordinates={lang.coordinates}
-                      onClick={() => onSelectLanguage(lang)}
-                      onMouseEnter={(e: MouseEvent<SVGGElement>) => {
-                        const pos = getMousePos(e);
-                        if (pos)
-                          setTooltip({ content: lang.name, ...pos });
-                      }}
-                      onMouseLeave={() => setTooltip(null)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <circle
-                        r={dotR}
-                        fill={
-                          isSelected
-                            ? "#F0EDE8"
-                            : lang.hasBenchmark
-                            ? "#22c55e"
-                            : "#ef4444"
-                        }
-                        stroke={isSelected ? "#E07832" : "rgba(0,0,0,0.4)"}
-                        strokeWidth={isSelected ? 2 : 1}
-                        style={{
-                          animation: `dotReveal 480ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerMs}ms both`,
-                          transformBox: "fill-box",
-                          transformOrigin: "50% 50%",
-                          filter: isSelected
-                            ? "drop-shadow(0 0 6px #E07832)"
-                            : lang.hasBenchmark
-                            ? "drop-shadow(0 0 3px #16a34a)"
-                            : "drop-shadow(0 0 3px #ef4444)",
-                          transition: "r 0.15s ease, filter 0.15s ease",
-                        }}
-                      />
-                    </Marker>
-                  );
-                });
-              })}
+            return (
+              <Marker
+                key={lang.id}
+                coordinates={lang.coordinates}
+                onClick={() => !dimmed && onSelectLanguage(lang)}
+                onMouseEnter={(e: MouseEvent<SVGGElement>) => {
+                  if (dimmed) return;
+                  setHoveredId(lang.id);
+                  const pos = getMousePos(e);
+                  if (pos) setTooltip({ content: lang.name, ...pos });
+                }}
+                onMouseLeave={() => {
+                  setHoveredId(null);
+                  setTooltip(null);
+                }}
+                style={{ cursor: dimmed ? "default" : "pointer" }}
+              >
+                <circle
+                  r={r}
+                  fill={isSelected ? "#F0EDE8" : fill}
+                  fillOpacity={opacity}
+                  stroke={isSelected ? "#E07832" : isHovered ? fill : "none"}
+                  strokeWidth={isSelected ? 1.5 : isHovered ? 1 : 0}
+                  strokeOpacity={0.8}
+                  style={{
+                    transition: "r 120ms ease, fill-opacity 120ms ease",
+                    filter: isSelected
+                      ? "drop-shadow(0 0 4px #E07832)"
+                      : isHovered && lang.hasBenchmark
+                      ? "drop-shadow(0 0 3px #22c55e)"
+                      : isHovered
+                      ? "drop-shadow(0 0 3px #ef4444)"
+                      : "none",
+                  }}
+                />
+              </Marker>
+            );
+          })}
         </ZoomableGroup>
       </ComposableMap>
 
-      <div className="absolute bottom-3 left-3 flex gap-4 text-xs">
-        {[
-          { color: "#22c55e", label: "All benchmarked" },
-          { color: "#E07832", label: "Partial" },
-          { color: "#ef4444", label: "None yet" },
-        ].map(({ color, label }) => (
-          <span key={label} className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
-            <span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />
-            {label}
-          </span>
-        ))}
+      {/* Bottom legend */}
+      <div className="absolute bottom-3 left-3 flex items-center gap-4 text-xs">
+        <span className="flex items-center gap-1.5" style={{ color: "rgba(203,213,225,0.5)" }}>
+          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "#22c55e", opacity: 0.85 }} />
+          benchmarked
+        </span>
+        <span className="flex items-center gap-1.5" style={{ color: "rgba(203,213,225,0.5)" }}>
+          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "#ef4444", opacity: 0.85 }} />
+          no benchmark yet
+        </span>
       </div>
 
-      <div className="absolute bottom-3 right-3 text-xs" style={{ color: "var(--text-faint)" }}>
-        {expandedFamily ? "Click a dot to explore" : "Click a bubble to expand"}
+      {/* Zoom hint */}
+      <div className="absolute bottom-3 right-3 text-xs" style={{ color: "rgba(255,255,255,0.15)" }}>
+        scroll to zoom · click to explore
       </div>
     </div>
   );
