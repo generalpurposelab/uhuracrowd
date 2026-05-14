@@ -52,22 +52,6 @@ function familyRadius(group: FamilyGroup): number {
   return Math.max(10, Math.min(22, 8 + group.languages.length * 1.2));
 }
 
-function radialLabel(
-  langCoords: [number, number],
-  centroid: [number, number],
-  dist = 18
-): { lx: number; ly: number; anchor: "start" | "end" | "middle" } {
-  const dx = langCoords[0] - centroid[0];
-  const dy = -(langCoords[1] - centroid[1]); // flip: lat up = SVG y down
-  const len = Math.sqrt(dx * dx + dy * dy);
-  // If too close to centroid, default to above
-  if (len < 0.5) return { lx: 0, ly: -dist, anchor: "middle" };
-  const lx = (dx / len) * dist;
-  const ly = -(dy / len) * dist; // back to SVG space
-  const anchor: "start" | "end" | "middle" =
-    lx > 4 ? "start" : lx < -4 ? "end" : "middle";
-  return { lx, ly, anchor };
-}
 
 function familyMatchesFilter(group: FamilyGroup, filter: MapFilter): boolean {
   if (filter === "all") return true;
@@ -263,17 +247,7 @@ export default function WorldMap({
 
                 return group.languages.map((lang) => {
                   const isSelected = selectedLanguage?.id === lang.id;
-                  const { lx, ly, anchor } = radialLabel(
-                    lang.coordinates,
-                    group.centroid,
-                    20
-                  );
                   const dotR = isSelected ? 8 : 5;
-                  const lineLen = Math.sqrt(lx * lx + ly * ly);
-                  const x1 = (lx / lineLen) * (dotR + 1);
-                  const y1 = (ly / lineLen) * (dotR + 1);
-                  const x2 = lx * 0.75;
-                  const y2 = ly * 0.75;
 
                   // Distance-based stagger: centroid-closest dots bloom first
                   const dx = lang.coordinates[0] - group.centroid[0];
@@ -306,10 +280,7 @@ export default function WorldMap({
                         stroke={isSelected ? "#E07832" : "rgba(0,0,0,0.4)"}
                         strokeWidth={isSelected ? 2 : 1}
                         style={{
-                          // Spring curve: overshoot baked into cubic-bezier
                           animation: `dotReveal 480ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerMs}ms both`,
-                          // fill-box makes transform-origin relative to the element,
-                          // not the SVG viewport — essential for correct scale origin
                           transformBox: "fill-box",
                           transformOrigin: "50% 50%",
                           filter: isSelected
@@ -320,29 +291,6 @@ export default function WorldMap({
                           transition: "r 0.15s ease, filter 0.15s ease",
                         }}
                       />
-                      <line
-                        x1={x1} y1={y1} x2={x2} y2={y2}
-                        stroke="#475569"
-                        strokeWidth={0.8}
-                        strokeLinecap="round"
-                        style={{
-                          animation: `fadeIn 300ms ease-out ${staggerMs + 160}ms both`,
-                        }}
-                      />
-                      <text
-                        x={lx}
-                        y={ly + 3}
-                        textAnchor={anchor}
-                        style={{
-                          animation: `fadeIn 300ms ease-out ${staggerMs + 220}ms both`,
-                          fontSize: 7.5,
-                          fill: "#cbd5e1",
-                          pointerEvents: "none",
-                          fontFamily: "sans-serif",
-                        }}
-                      >
-                        {lang.name}
-                      </text>
                     </Marker>
                   );
                 });
