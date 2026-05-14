@@ -70,15 +70,6 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowSubmit(true)}
-              className="px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap"
-              style={{ background: "#E07832", color: "#13100D" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "#F08942")}
-              onMouseLeave={e => (e.currentTarget.style.background = "#E07832")}
-            >
-              + Submit a benchmark
-            </button>
             {/* Theme toggle */}
             <button
               onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
