@@ -50,7 +50,7 @@ export default function StatsBar({ languages }: StatsBarProps) {
         <span className="text-2xl font-bold" style={{ color: "var(--text-faint)" }}>/</span>
         <span className="text-2xl font-bold tabular-nums" style={{ color: "var(--text-primary)" }}>{countTotal}</span>
         <span className="text-xs ml-1" style={{ color: "var(--text-muted)" }}>languages benchmarked</span>
-        <span className="text-xs ml-2" style={{ color: "var(--text-faint)" }}>1M+ speakers</span>
+        <span className="text-xs ml-2" style={{ color: "var(--text-faint)" }}>with documented speakers</span>
       </div>
 
       <div className="flex items-center gap-2 ml-auto">

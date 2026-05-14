@@ -13,10 +13,11 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-ROOT = Path(__file__).parent.parent
-RAW  = ROOT / "data" / "wikidata-raw.json"
-OLD  = ROOT / "data" / "languages.json"
-OUT  = ROOT / "data" / "languages.json"
+ROOT       = Path(__file__).parent.parent
+RAW        = ROOT / "data" / "wikidata-raw.json"
+OLD        = ROOT / "data" / "languages.json"
+OUT        = ROOT / "data" / "languages.json"
+BENCHMARKS = ROOT / "data" / "benchmarks.json"
 
 # ── Country centroids [lng, lat] ──────────────────────────────────────────────
 COUNTRY_CENTROIDS = {
@@ -318,6 +319,17 @@ def safe_float(v):
     except (ValueError, TypeError):
         return None
 
+# ── Load benchmarks catalogue ────────────────────────────────────────────────
+with open(BENCHMARKS) as f:
+    benchmarks_catalogue = json.load(f)
+
+# Build reverse map: ISO → list of benchmark objects (without languages list)
+catalogue_by_iso: dict[str, list] = defaultdict(list)
+for b in benchmarks_catalogue:
+    bench_entry = {k: v for k, v in b.items() if k != "languages"}
+    for iso in b.get("languages", []):
+        catalogue_by_iso[iso.strip()].append(bench_entry)
+
 # ── Load raw Wikidata ─────────────────────────────────────────────────────────
 with open(RAW) as f:
     raw = json.load(f)
@@ -372,7 +384,12 @@ for r in deduped:
 
     family = get_family(iso)
     family_group = FAMILY_GROUP.get(family, regional_group(coord))
-    benchmarks = benchmarks_by_iso.get(iso, [])
+    # Merge: start with curated benchmarks (may have URLs/metadata the catalogue lacks),
+    # then add catalogue entries not already present by name
+    curated = benchmarks_by_iso.get(iso, [])
+    curated_names = {b['name'] for b in curated}
+    from_catalogue = [b for b in catalogue_by_iso.get(iso, []) if b['name'] not in curated_names]
+    benchmarks = curated + from_catalogue
 
     # Derive region from coord
     lng, lat = coord
@@ -433,6 +450,17 @@ for ol in old_langs:
         if ol.get('benchmarks') and not existing.get('benchmarks'):
             existing['benchmarks'] = ol['benchmarks']
             existing['hasBenchmark'] = True
+
+# Apply catalogue benchmarks to all merged-in old-curated languages too
+for lang in output:
+    iso = lang['iso639_3']
+    cat = catalogue_by_iso.get(iso, [])
+    if cat:
+        existing_names = {b['name'] for b in lang.get('benchmarks', [])}
+        new_entries = [b for b in cat if b['name'] not in existing_names]
+        if new_entries:
+            lang['benchmarks'] = lang.get('benchmarks', []) + new_entries
+            lang['hasBenchmark'] = True
 
 print(f"Merged in {merged_count} languages from old curated dataset")
 
