@@ -294,15 +294,18 @@ function EmptyPanel({
   onFilterChange: (f: MapFilter) => void;
   onSubmit: () => void;
 }) {
-  const filters: { key: MapFilter; color: string; label: string }[] = [
-    { key: "benchmarked", color: "#22c55e", label: "Benchmarked"      },
-    { key: "none",        color: "#ef4444", label: "No benchmark yet" },
+  const withBenchmark = languages.filter((l) => l.hasBenchmark).length;
+  const withoutBenchmark = languages.length - withBenchmark;
+
+  const filters: { key: MapFilter; color: string; label: string; count: number }[] = [
+    { key: "benchmarked", color: "#22c55e", label: "Benchmarked",      count: withBenchmark    },
+    { key: "none",        color: "#ef4444", label: "No benchmark yet", count: withoutBenchmark },
   ];
 
   return (
     <div className="rounded-xl border overflow-hidden" style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}>
       <div className="p-5 flex flex-col gap-2">
-        {filters.map(({ key, color, label }) => {
+        {filters.map(({ key, color, label, count }) => {
           const active = mapFilter === key;
           return (
             <button
@@ -310,14 +313,15 @@ function EmptyPanel({
               onClick={() => onFilterChange(active ? "all" : key)}
               className="flex items-center gap-3 w-full rounded-lg px-3 py-2.5 text-left transition-all"
               style={{
-                background: active ? `rgba(${color === "#22c55e" ? "34,197,94" : color === "#f59e0b" ? "245,158,11" : "239,68,68"},0.08)` : "var(--bg-base)",
+                background: active ? `rgba(${color === "#22c55e" ? "34,197,94" : "239,68,68"},0.08)` : "var(--bg-base)",
                 border: `1px solid ${active ? color : "var(--border)"}`,
                 outline: "none",
               }}
             >
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: color }} />
               <span className="flex-1 text-xs font-medium" style={{ color: active ? "var(--text-primary)" : "var(--text-secondary)" }}>{label}</span>
-              {active && <span className="text-xs font-bold" style={{ color: "var(--text-muted)" }}>×</span>}
+              <span className="text-xs tabular-nums" style={{ color: active ? "var(--text-muted)" : "var(--text-faint)" }}>{count.toLocaleString()}</span>
+              {active && <span className="text-xs font-bold ml-1" style={{ color: "var(--text-muted)" }}>×</span>}
             </button>
           );
         })}
