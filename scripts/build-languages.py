@@ -71,7 +71,6 @@ COUNTRY_CENTROIDS = {
 }
 
 # ── ISO 639-3 prefix → language family ───────────────────────────────────────
-# Based on SIL/Ethnologue macro-family groupings
 ISO_FAMILY = {
     # Niger-Congo
     "swh": "Niger-Congo", "yor": "Niger-Congo", "ibo": "Niger-Congo",
@@ -85,13 +84,22 @@ ISO_FAMILY = {
     "bam": "Niger-Congo", "dyu": "Niger-Congo", "aka": "Niger-Congo",
     "kon": "Niger-Congo", "kik": "Niger-Congo", "kam": "Niger-Congo",
     "mer": "Niger-Congo", "luo": "Niger-Congo", "kln": "Niger-Congo",
-    "guz": "Niger-Congo", "mfe": "Niger-Congo", "cgg": "Niger-Congo",
+    "guz": "Niger-Congo", "cgg": "Niger-Congo", "bum": "Niger-Congo",
+    "dua": "Niger-Congo", "bss": "Niger-Congo", "ybb": "Niger-Congo",
+    "bas": "Niger-Congo", "njo": "Niger-Congo", "mgo": "Niger-Congo",
+    "kpe": "Niger-Congo", "men": "Niger-Congo", "tem": "Niger-Congo",
+    "sus": "Niger-Congo", "mde": "Niger-Congo", "bci": "Niger-Congo",
+    "sfw": "Niger-Congo", "nge": "Niger-Congo", "fuv": "Niger-Congo",
     # Afro-Asiatic
     "ara": "Afro-Asiatic", "amh": "Afro-Asiatic", "hau": "Afro-Asiatic",
     "som": "Afro-Asiatic", "orm": "Afro-Asiatic", "tir": "Afro-Asiatic",
     "aar": "Afro-Asiatic", "heb": "Afro-Asiatic", "mlt": "Afro-Asiatic",
-    "ber": "Afro-Asiatic", "kab": "Afro-Asiatic", "shi": "Afro-Asiatic",
-    "zgh": "Afro-Asiatic", "tzm": "Afro-Asiatic", "rif": "Afro-Asiatic",
+    "kab": "Afro-Asiatic", "shi": "Afro-Asiatic", "zgh": "Afro-Asiatic",
+    "tzm": "Afro-Asiatic", "rif": "Afro-Asiatic", "apc": "Afro-Asiatic",
+    "acm": "Afro-Asiatic", "ary": "Afro-Asiatic", "aeb": "Afro-Asiatic",
+    "acq": "Afro-Asiatic", "afb": "Afro-Asiatic", "shu": "Afro-Asiatic",
+    "apd": "Afro-Asiatic", "arq": "Afro-Asiatic", "sid": "Afro-Asiatic",
+    "bej": "Afro-Asiatic", "afar": "Afro-Asiatic",
     # Indo-European
     "eng": "Indo-European", "spa": "Indo-European", "fra": "Indo-European",
     "por": "Indo-European", "rus": "Indo-European", "deu": "Indo-European",
@@ -100,74 +108,114 @@ ISO_FAMILY = {
     "hrv": "Indo-European", "srp": "Indo-European", "bos": "Indo-European",
     "slv": "Indo-European", "bul": "Indo-European", "ukr": "Indo-European",
     "bel": "Indo-European", "lit": "Indo-European", "lav": "Indo-European",
-    "est": "Indo-European", "hin": "Indo-European", "ben": "Indo-European",
-    "pan": "Indo-European", "urd": "Indo-European", "mar": "Indo-European",
-    "guj": "Indo-European", "ori": "Indo-European", "sin": "Indo-European",
-    "nep": "Indo-European", "fas": "Indo-European", "pes": "Indo-European",
-    "prs": "Indo-European", "pus": "Indo-European", "tgk": "Indo-European",
-    "swe": "Indo-European", "nor": "Indo-European", "dan": "Indo-European",
-    "isl": "Indo-European", "afr": "Indo-European", "yid": "Indo-European",
-    "gle": "Indo-European", "cym": "Indo-European", "kat": "Kartvelian",
-    "mai": "Indo-European", "bho": "Indo-European", "awa": "Indo-European",
-    "raj": "Indo-European", "mag": "Indo-European", "new": "Sino-Tibetan",
+    "hin": "Indo-European", "ben": "Indo-European", "pan": "Indo-European",
+    "urd": "Indo-European", "mar": "Indo-European", "guj": "Indo-European",
+    "ori": "Indo-European", "sin": "Indo-European", "nep": "Indo-European",
+    "fas": "Indo-European", "pes": "Indo-European", "prs": "Indo-European",
+    "pus": "Indo-European", "tgk": "Indo-European", "swe": "Indo-European",
+    "nor": "Indo-European", "dan": "Indo-European", "isl": "Indo-European",
+    "afr": "Indo-European", "yid": "Indo-European", "gle": "Indo-European",
+    "cym": "Indo-European", "mai": "Indo-European", "bho": "Indo-European",
+    "awa": "Indo-European", "raj": "Indo-European", "mag": "Indo-European",
     "hne": "Indo-European", "dcc": "Indo-European", "gbm": "Indo-European",
     "kas": "Indo-European", "sdh": "Indo-European", "glg": "Indo-European",
     "cat": "Indo-European", "oci": "Indo-European", "ast": "Indo-European",
     "srd": "Indo-European", "vec": "Indo-European", "nap": "Indo-European",
     "scn": "Indo-European", "lmo": "Indo-European", "pms": "Indo-European",
     "lij": "Indo-European", "fur": "Indo-European", "roh": "Indo-European",
-    "lat": "Indo-European", "ang": "Indo-European", "frm": "Indo-European",
+    "hye": "Indo-European", "hif": "Indo-European", "snd": "Indo-European",
+    "brx": "Indo-European", "doi": "Indo-European", "kok": "Indo-European",
+    "mwr": "Indo-European", "dgo": "Indo-European", "lmn": "Indo-European",
+    "bgc": "Indo-European", "rkt": "Indo-European", "syl": "Indo-European",
+    "lus": "Indo-European", "noe": "Indo-European", "kfy": "Indo-European",
     # Sino-Tibetan
     "cmn": "Sino-Tibetan", "yue": "Sino-Tibetan", "wuu": "Sino-Tibetan",
     "nan": "Sino-Tibetan", "hak": "Sino-Tibetan", "gan": "Sino-Tibetan",
     "cjy": "Sino-Tibetan", "hsn": "Sino-Tibetan", "mnp": "Sino-Tibetan",
     "zho": "Sino-Tibetan", "bod": "Sino-Tibetan", "dzo": "Sino-Tibetan",
     "mya": "Sino-Tibetan", "kac": "Sino-Tibetan", "lhu": "Sino-Tibetan",
-    "lus": "Sino-Tibetan", "hlt": "Sino-Tibetan", "cfm": "Sino-Tibetan",
+    "cfm": "Sino-Tibetan", "new": "Sino-Tibetan", "hlt": "Sino-Tibetan",
+    "kht": "Sino-Tibetan", "zha": "Sino-Tibetan", "lcp": "Sino-Tibetan",
     # Dravidian
     "tam": "Dravidian", "tel": "Dravidian", "kan": "Dravidian",
-    "mal": "Dravidian", "tulu": "Dravidian", "knn": "Dravidian",
-    "gon": "Dravidian", "kur": "Dravidian", "kui": "Dravidian",
+    "mal": "Dravidian", "knn": "Dravidian", "gon": "Dravidian",
+    "kui": "Dravidian", "tcy": "Dravidian", "kru": "Dravidian",
+    "klq": "Dravidian", "brh": "Dravidian",
     # Turkic
     "tur": "Turkic", "azb": "Turkic", "uzb": "Turkic", "kaz": "Turkic",
     "uig": "Turkic", "kir": "Turkic", "tuk": "Turkic", "bak": "Turkic",
     "tat": "Turkic", "chv": "Turkic", "sah": "Turkic", "nog": "Turkic",
-    "kmr": "Turkic", "crh": "Turkic", "klj": "Turkic", "otk": "Turkic",
+    "crh": "Turkic", "klj": "Turkic", "krc": "Turkic", "aze": "Turkic",
+    "tyv": "Turkic", "alt": "Turkic", "khk": "Mongolic",
     # Austronesian
     "ind": "Austronesian", "msa": "Austronesian", "tgl": "Austronesian",
     "jav": "Austronesian", "sun": "Austronesian", "mad": "Austronesian",
     "min": "Austronesian", "bug": "Austronesian", "mlg": "Austronesian",
-    "haw": "Austronesian", "mao": "Austronesian", "fij": "Austronesian",
+    "haw": "Austronesian", "mri": "Austronesian", "fij": "Austronesian",
     "bis": "Austronesian", "ceb": "Austronesian", "ilo": "Austronesian",
     "war": "Austronesian", "pam": "Austronesian", "bcl": "Austronesian",
-    "bik": "Austronesian", "hil": "Austronesian", "mga": "Austronesian",
+    "hil": "Austronesian", "bik": "Austronesian", "pag": "Austronesian",
+    "tsg": "Austronesian", "iba": "Austronesian", "mak": "Austronesian",
+    "tet": "Austronesian", "mgm": "Austronesian",
     # Austroasiatic
-    "vie": "Austroasiatic", "khm": "Austroasiatic", "mon": "Austroasiatic",
-    "sat": "Austroasiatic", "mni": "Austroasiatic", "kha": "Austroasiatic",
+    "vie": "Austroasiatic", "khm": "Austroasiatic", "sat": "Austroasiatic",
+    "mni": "Austroasiatic", "kha": "Austroasiatic", "mnw": "Austroasiatic",
+    "hoc": "Austroasiatic", "kdt": "Austroasiatic",
     # Tai-Kadai
-    "tha": "Tai-Kadai", "lao": "Tai-Kadai", "zha": "Tai-Kadai",
-    "pcc": "Tai-Kadai", "khb": "Tai-Kadai",
+    "tha": "Tai-Kadai", "lao": "Tai-Kadai", "pcc": "Tai-Kadai",
+    "khb": "Tai-Kadai", "aho": "Tai-Kadai",
     # Japonic
     "jpn": "Japonic", "ryu": "Japonic",
     # Koreanic
     "kor": "Koreanic",
     # Mongolic
-    "khk": "Mongolic", "mvf": "Mongolic", "bxr": "Mongolic",
+    "mvf": "Mongolic", "bxr": "Mongolic", "xal": "Mongolic",
     # Uralic
-    "fin": "Uralic", "hun": "Uralic", "est": "Uralic", "erzya": "Uralic",
-    "myv": "Uralic", "mdf": "Uralic", "udm": "Uralic", "koi": "Uralic",
-    "kom": "Uralic", "sme": "Uralic",
+    "fin": "Uralic", "hun": "Uralic", "est": "Uralic", "myv": "Uralic",
+    "mdf": "Uralic", "udm": "Uralic", "koi": "Uralic", "kom": "Uralic",
+    "sme": "Uralic", "smn": "Uralic", "sms": "Uralic", "vep": "Uralic",
     # Kartvelian
     "kat": "Kartvelian", "lzz": "Kartvelian", "mgr": "Kartvelian",
     # Nilo-Saharan
     "knc": "Nilo-Saharan", "kau": "Nilo-Saharan", "din": "Nilo-Saharan",
-    "nus": "Nilo-Saharan", "luo": "Nilo-Saharan", "mas": "Nilo-Saharan",
+    "nus": "Nilo-Saharan", "mas": "Nilo-Saharan", "luo": "Nilo-Saharan",
+    "kbp": "Nilo-Saharan", "lgg": "Nilo-Saharan", "alz": "Nilo-Saharan",
+    # Mayan
+    "cak": "Mayan", "kek": "Mayan", "tzo": "Mayan", "ctu": "Mayan",
+    "ixl": "Mayan", "cac": "Mayan", "tzh": "Mayan", "tzj": "Mayan",
+    "mam": "Mayan", "quc": "Mayan", "kcb": "Mayan", "ixl": "Mayan",
+    "ttc": "Mayan", "cnm": "Mayan", "kjb": "Mayan", "poh": "Mayan",
+    # Uto-Aztecan
+    "ngu": "Uto-Aztecan", "nhn": "Uto-Aztecan", "hch": "Uto-Aztecan",
+    "nav": "Uto-Aztecan", "tsz": "Uto-Aztecan", "pua": "Uto-Aztecan",
+    "nch": "Uto-Aztecan", "azz": "Uto-Aztecan", "nhe": "Uto-Aztecan",
+    "nhw": "Uto-Aztecan", "nlv": "Uto-Aztecan", "ncj": "Uto-Aztecan",
+    "nhi": "Uto-Aztecan", "nhq": "Uto-Aztecan", "naz": "Uto-Aztecan",
+    "hus": "Uto-Aztecan",
+    # Oto-Manguean
+    "zap": "Oto-Manguean", "zai": "Oto-Manguean", "mix": "Oto-Manguean",
+    "miz": "Oto-Manguean", "otn": "Oto-Manguean", "otm": "Oto-Manguean",
+    "mxt": "Oto-Manguean", "ztu": "Oto-Manguean", "chp": "Oto-Manguean",
     # Quechuan
     "que": "Quechuan", "quz": "Quechuan", "qub": "Quechuan",
+    "quy": "Quechuan", "qvc": "Quechuan", "qvh": "Quechuan",
     # Tupian
-    "grn": "Tupian", "gug": "Tupian",
-    # Creole
-    "hat": "Creole", "gcf": "Creole", "mfe": "Creole",
+    "grn": "Tupian", "gug": "Tupian", "gun": "Tupian",
+    # Aymaran
+    "aym": "Aymaran", "ayc": "Aymaran",
+    # Algic (North America)
+    "oji": "Algic", "cre": "Algic", "mic": "Algic", "pot": "Algic",
+    # Athabaskan
+    "nav": "Athabaskan", "dne": "Athabaskan", "tli": "Athabaskan",
+    # Muskogean
+    "chr": "Muskogean", "chk": "Muskogean",
+    # Creole / Pidgin
+    "hat": "Creole", "gcf": "Creole", "mfe": "Creole", "pcm": "Creole",
+    "tpi": "Creole", "hwc": "Creole", "cbk": "Creole", "pis": "Creole",
+    # Papuan
+    "tpi": "Papuan", "epo": "Constructed",
+    # Sign languages
+    "ase": "Sign Language", "bfi": "Sign Language", "fsl": "Sign Language",
 }
 
 # Family → familyGroup (for map clustering)
@@ -188,8 +236,18 @@ FAMILY_GROUP = {
     "Kartvelian": "Kartvelian",
     "Nilo-Saharan": "Nilo-Saharan",
     "Quechuan": "Quechuan",
+    "Aymaran": "Aymaran",
     "Tupian": "Tupian",
+    "Mayan": "Mayan",
+    "Uto-Aztecan": "Uto-Aztecan",
+    "Oto-Manguean": "Oto-Manguean",
+    "Algic": "Algic",
+    "Athabaskan": "Athabaskan",
+    "Muskogean": "Muskogean",
     "Creole": "Creole",
+    "Sign Language": "Sign Language",
+    "Constructed": "Constructed",
+    "Papuan": "Papuan",
 }
 
 # ── Manual coord overrides for languages where Wikidata gives wrong country ───
@@ -226,6 +284,33 @@ def get_coord(iso, row):
 
 def get_family(iso):
     return ISO_FAMILY.get(iso, "Other")
+
+def regional_group(coord):
+    """Fallback familyGroup for unclassified languages based on coordinates."""
+    if not coord:
+        return "Other"
+    lng, lat = coord
+    if lat > 35 and -10 < lng < 40:
+        return "European (Other)"
+    if lat > 10 and 40 < lng < 75:
+        return "Middle Eastern (Other)"
+    if lat > 0 and 75 < lng < 145:
+        return "Asian (Other)"
+    if lat < 10 and lng > 100:
+        return "Pacific (Other)"
+    if lat < 0 and 100 < lng < 160:
+        return "Papuan"
+    if lat > -5 and -20 < lng < 55:
+        return "African (Other)"
+    if lat < -5 and -20 < lng < 55:
+        return "Southern African (Other)"
+    if -120 < lng < -60 and lat > 15:
+        return "North American (Other)"
+    if -82 < lng < -34 and lat < 15:
+        return "South American (Other)"
+    if lat < 0 and lng < -34:
+        return "South American (Other)"
+    return "Other"
 
 def safe_float(v):
     try:
@@ -286,7 +371,7 @@ for r in deduped:
         continue
 
     family = get_family(iso)
-    family_group = FAMILY_GROUP.get(family, family)
+    family_group = FAMILY_GROUP.get(family, regional_group(coord))
     benchmarks = benchmarks_by_iso.get(iso, [])
 
     # Derive region from coord
