@@ -16,14 +16,14 @@
 }
 
 [data-theme="light"] {
-  --bg-base: #FAF7F4;
-  --bg-surface: #F0EBE5;
-  --bg-elevated: #E8DDD5;
-  --border: #DDD5CC;
+  --bg-base: #EDE6DF;
+  --bg-surface: #E4DDD6;
+  --bg-elevated: #D8D0C8;
+  --border: #CEC6BC;
   --text-primary: #1A1512;
   --text-secondary: #5C4E42;
   --text-muted: #9A8B7A;
-  --text-faint: #C4B8AA;
+  --text-faint: #B8AFA6;
 }
 
 @theme inline {
