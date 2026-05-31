@@ -119,19 +119,19 @@ export default function WorldMap({
             const isSelected = selectedLanguage?.id === lang.id;
             const isHovered = hoveredId === lang.id;
             const matches = langMatchesFilter(lang, mapFilter);
-            const dimmed = !matches && mapFilter !== "all";
+
+            if (!matches && mapFilter !== "all" && !isSelected) return null;
 
             const r = isSelected ? 5.5 : isHovered ? 4.5 : 3;
             const fill = lang.hasBenchmark ? "#22c55e" : "#ef4444";
-            const opacity = dimmed ? 0.08 : isSelected || isHovered ? 1 : 0.75;
+            const opacity = isSelected || isHovered ? 1 : 0.75;
 
             return (
               <Marker
                 key={lang.id}
                 coordinates={lang.coordinates}
-                onClick={() => !dimmed && onSelectLanguage(lang)}
+                onClick={() => onSelectLanguage(lang)}
                 onMouseEnter={(e: MouseEvent<SVGGElement>) => {
-                  if (dimmed) return;
                   setHoveredId(lang.id);
                   const pos = getMousePos(e);
                   if (pos) setTooltip({ content: lang.name, ...pos });
@@ -140,7 +140,7 @@ export default function WorldMap({
                   setHoveredId(null);
                   setTooltip(null);
                 }}
-                style={{ cursor: dimmed ? "default" : "pointer" }}
+                style={{ cursor: "pointer" }}
               >
                 <circle
                   r={r}
