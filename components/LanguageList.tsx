@@ -47,7 +47,7 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
       className="px-3 py-1 rounded-full text-xs font-medium transition-colors"
       style={
         filter === f
-          ? { background: "#E07832", color: "#13100D" }
+          ? { background: "#FD7804", color: "#303030" }
           : { background: "var(--bg-elevated)", color: "var(--text-secondary)" }
       }
     >
@@ -68,7 +68,7 @@ export default function LanguageList({ languages, selectedLanguage, onSelectLang
           border: "1px solid var(--border)",
           color: "var(--text-primary)",
         }}
-        onFocus={e => (e.currentTarget.style.borderColor = "#E07832")}
+        onFocus={e => (e.currentTarget.style.borderColor = "#FD7804")}
         onBlur={e => (e.currentTarget.style.borderColor = "var(--border)")}
       />
 

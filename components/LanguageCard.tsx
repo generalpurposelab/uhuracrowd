@@ -21,7 +21,7 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
       className="w-full text-left px-4 py-3 rounded-lg border transition-all"
       style={
         isSelected
-          ? { borderColor: "#E07832", background: "rgba(224,120,50,0.08)" }
+          ? { borderColor: "#A8ACB5", background: "rgba(168,172,181,0.1)" }
           : { borderColor: "var(--border)", background: "var(--bg-surface)" }
       }
       onMouseEnter={e => {
@@ -42,7 +42,7 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
           <div className="flex items-center gap-2">
             <span
               className="inline-block w-2 h-2 rounded-full flex-shrink-0"
-              style={{ background: language.hasBenchmark ? "#22c55e" : "#ef4444" }}
+              style={{ background: language.hasBenchmark ? "#016EFD" : "#FD7804" }}
             />
             <span className="font-medium text-sm truncate" style={{ color: "var(--text-primary)" }}>
               {language.name}
@@ -61,7 +61,7 @@ export default function LanguageCard({ language, isSelected, onClick }: Language
         </div>
         <div className="flex-shrink-0 text-right">
           {language.hasBenchmark ? (
-            <span className="text-xs font-medium" style={{ color: "#22c55e" }}>
+            <span className="text-xs font-medium" style={{ color: "#016EFD" }}>
               {language.benchmarks.length} {language.benchmarks.length === 1 ? "benchmark" : "benchmarks"}
             </span>
           ) : (

@@ -46,7 +46,7 @@ export default function StatsBar({ languages }: StatsBarProps) {
   return (
     <div className="flex items-center gap-4 flex-wrap">
       <div className="flex items-baseline gap-1.5">
-        <span className="text-2xl font-bold tabular-nums" style={{ color: "#22c55e" }}>{countWith}</span>
+        <span className="text-2xl font-bold tabular-nums" style={{ color: "#016EFD" }}>{countWith}</span>
         <span className="text-2xl font-bold" style={{ color: "var(--text-faint)" }}>/</span>
         <span className="text-2xl font-bold tabular-nums" style={{ color: "var(--text-primary)" }}>{countTotal}</span>
         <span className="text-xs ml-1" style={{ color: "var(--text-muted)" }}>languages benchmarked</span>
@@ -60,7 +60,7 @@ export default function StatsBar({ languages }: StatsBarProps) {
             className="h-full rounded-full"
             style={{
               width: `${pct}%`,
-              background: "#22c55e",
+              background: "#016EFD",
               transformOrigin: "left center",
               animation: "barFill 900ms cubic-bezier(0.25, 0, 0, 1) 400ms both",
             }}

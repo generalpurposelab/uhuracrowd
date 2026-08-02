@@ -23,9 +23,9 @@ export interface Language {
   benchmarks: Benchmark[];
 }
 
-export interface FamilyGroup {
-  name: string;
-  centroid: [number, number];
-  languages: Language[];
-  benchmarkedCount: number;
-}
+// Shared by app/page.tsx (view state) and components/Globe.tsx (marker
+// filtering) — kept here so the two don't drift out of sync. "partial" was
+// dropped: nothing ever set it (no UI offered a third filter state), and the
+// per-language data model has no concept of a partially-benchmarked
+// language anyway — that would only make sense at a language-family level.
+export type MapFilter = "all" | "benchmarked" | "none";

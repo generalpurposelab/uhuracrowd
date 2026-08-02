@@ -1,20 +1,22 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import languagesData from "@/data/languages.json";
-import { Language } from "@/types";
+import { Language, MapFilter } from "@/types";
 import LanguageList from "@/components/LanguageList";
 import LanguageDetail from "@/components/LanguageDetail";
 import StatsBar from "@/components/StatsBar";
 import SubmitForm, { SubmissionData } from "@/components/SubmitForm";
+import GPLogotype from "@/components/GPLogotype";
 
-const WorldMap = dynamic(() => import("@/components/WorldMap"), { ssr: false });
+// Globe pulls in cobe (WebGL) — dynamic + ssr:false keeps it out of the
+// server bundle and avoids trying to touch `canvas`/WebGL during SSR.
+const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const languages = languagesData as Language[];
 
 type View = "map" | "list";
-type MapFilter = "all" | "benchmarked" | "partial" | "none";
 
 export default function Home() {
   const [view, setView] = useState<View>("map");
@@ -23,6 +25,21 @@ export default function Home() {
   const [submissions, setSubmissions] = useState<SubmissionData[]>([]);
   const [mapFilter, setMapFilter] = useState<MapFilter>("all");
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  // Theme follows the OS/browser color-scheme preference live — there used
+  // to be a manual sun/moon toggle in the header; it was dropped in favor
+  // of just respecting the system setting (product decision, not a bug).
+  // `theme` still drives a `data-theme` attribute below because the Globe's
+  // canvas palette (colors, glow, brightness) can't be swapped via CSS —
+  // it's plain JS state passed down as a prop, in parallel with the CSS
+  // variable overrides in globals.css that everything else reads.
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-color-scheme: light)");
+    const applyTheme = (e: MediaQueryList | MediaQueryListEvent) => setTheme(e.matches ? "light" : "dark");
+    applyTheme(query);
+    query.addEventListener("change", applyTheme);
+    return () => query.removeEventListener("change", applyTheme);
+  }, []);
 
   const handleSelectLanguage = useCallback((lang: Language) => {
     setSelectedLanguage((prev) => (prev?.id === lang.id ? null : lang));
@@ -39,91 +56,26 @@ export default function Home() {
       data-theme={theme}
     >
 
-      {/* Header */}
+      {/* Header. Title font is IBM Plex Sans Bold, not the brand guide's
+          "Exposure" headline serif — Exposure is a licensed Klim Type
+          Foundry face with no web-font source available, and IBM Plex reads
+          more cohesively with the rest of the GP-branded chrome (footer
+          logo, body copy) than an unrelated substitute serif did. */}
       <header className="dot-grid border-b px-6 py-5" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-5">
-            {/* Dot-grid logo mark */}
-            <DotMark />
-            <div>
-              <div className="flex items-baseline gap-3">
-                <span
-                  className="font-black uppercase tracking-tight leading-none"
-                  style={{
-                    fontFamily: "var(--font-playfair), Georgia, serif",
-                    fontSize: "1.5rem",
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  Uhura
-                </span>
-                <span
-                  className="text-xs uppercase tracking-widest"
-                  style={{ color: "#E07832" }}
-                >
-                  by General Purpose
-                </span>
-              </div>
-              <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
-                A crowdsourced atlas of LLM benchmarks for low-resource languages
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            {/* Theme toggle */}
-            <button
-              onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              style={{
-                width: 44,
-                height: 24,
-                borderRadius: 12,
-                background: "var(--bg-elevated)",
-                border: "1px solid var(--border)",
-                position: "relative",
-                cursor: "pointer",
-                padding: 0,
-                transition: "background 0.2s",
-                flexShrink: 0,
-              }}
-            >
-              <span
-                style={{
-                  position: "absolute",
-                  top: 3,
-                  left: theme === "dark" ? 3 : 23,
-                  width: 16,
-                  height: 16,
-                  borderRadius: "50%",
-                  background: "#E07832",
-                  transition: "left 0.2s",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {theme === "dark" ? (
-                  /* Sun icon */
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#13100D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4" />
-                    <line x1="12" y1="2" x2="12" y2="5" />
-                    <line x1="12" y1="19" x2="12" y2="22" />
-                    <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" />
-                    <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" />
-                    <line x1="2" y1="12" x2="5" y2="12" />
-                    <line x1="19" y1="12" x2="22" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" />
-                    <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
-                  </svg>
-                ) : (
-                  /* Moon icon */
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#13100D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                )}
-              </span>
-            </button>
-          </div>
+        <div className="max-w-screen-xl mx-auto">
+          <span
+            className="font-bold uppercase tracking-tight leading-none block"
+            style={{
+              fontFamily: "var(--font-sans), sans-serif",
+              fontSize: "1.625rem",
+              color: "var(--text-primary)",
+            }}
+          >
+            Uhura
+          </span>
+          <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+            A crowdsourced atlas of LLM benchmarks for low-resource languages
+          </p>
         </div>
       </header>
 
@@ -165,11 +117,12 @@ export default function Home() {
           {view === "map" ? (
             <div className="flex gap-4 flex-col lg:flex-row">
               <div className="flex-1 min-w-0">
-                <WorldMap
+                <Globe
                   languages={languages}
                   selectedLanguage={selectedLanguage}
                   onSelectLanguage={handleSelectLanguage}
                   mapFilter={mapFilter}
+                  theme={theme}
                 />
               </div>
               <div className="w-full lg:w-80 flex-shrink-0">
@@ -224,21 +177,23 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t px-6 py-4 mt-4" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-          <p className="text-xs" style={{ color: "var(--text-faint)" }}>
-            Built by{" "}
+          <div className="flex items-center gap-4">
             <a
-              href="https://generalpurpose.ai"
-              className="transition-colors"
-              style={{ color: "var(--text-muted)" }}
+              href="https://generalpurpose.io"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="General Purpose"
+              className="transition-opacity hover:opacity-70"
+              style={{ color: "var(--text-primary)" }}
             >
-              General Purpose
+              <GPLogotype style={{ height: 40, width: "auto", display: "block" }} />
             </a>
-            {" "}· Celebrating researchers tackling low-resource languages worldwide.
-          </p>
+            <p className="text-xs" style={{ color: "var(--text-faint)" }}>
+              Celebrating researchers tackling low-resource languages worldwide.
+            </p>
+          </div>
           {submissions.length > 0 && (
-            <span className="text-xs" style={{ color: "#E07832" }}>
+            <span className="text-xs" style={{ color: "#FD7804" }}>
               {submissions.length} submission{submissions.length !== 1 ? "s" : ""} this session
             </span>
           )}
@@ -254,31 +209,6 @@ export default function Home() {
         />
       )}
     </div>
-  );
-}
-
-/* ── Small dot-grid logo mark ── */
-function DotMark() {
-  const cols = 7;
-  const rows = 7;
-  const gap = 4;
-  const r = 1;
-  const size = (cols - 1) * gap;
-  return (
-    <svg width={size + r * 2} height={size + r * 2} viewBox={`0 0 ${size + r * 2} ${size + r * 2}`}>
-      {Array.from({ length: rows }).map((_, row) =>
-        Array.from({ length: cols }).map((_, col) => (
-          <circle
-            key={`${row}-${col}`}
-            cx={r + col * gap}
-            cy={r + row * gap}
-            r={r}
-            fill="#E07832"
-            opacity={0.7}
-          />
-        ))
-      )}
-    </svg>
   );
 }
 
@@ -298,8 +228,8 @@ function EmptyPanel({
   const withoutBenchmark = languages.length - withBenchmark;
 
   const filters: { key: MapFilter; color: string; label: string; count: number }[] = [
-    { key: "benchmarked", color: "#22c55e", label: "Benchmarked",      count: withBenchmark    },
-    { key: "none",        color: "#ef4444", label: "No benchmark yet", count: withoutBenchmark },
+    { key: "benchmarked", color: "#016EFD", label: "Benchmarked",      count: withBenchmark    },
+    { key: "none",        color: "#FD7804", label: "No benchmark yet", count: withoutBenchmark },
   ];
 
   return (
@@ -313,7 +243,7 @@ function EmptyPanel({
               onClick={() => onFilterChange(active ? "all" : key)}
               className="flex items-center gap-3 w-full rounded-lg px-3 py-2.5 text-left transition-all"
               style={{
-                background: active ? `rgba(${color === "#22c55e" ? "34,197,94" : "239,68,68"},0.08)` : "var(--bg-base)",
+                background: active ? `rgba(${color === "#016EFD" ? "1,110,253" : "253,120,4"},0.08)` : "var(--bg-base)",
                 border: `1px solid ${active ? color : "var(--border)"}`,
                 outline: "none",
               }}
@@ -331,7 +261,7 @@ function EmptyPanel({
         <button
           onClick={onSubmit}
           className="w-full py-2 text-sm font-semibold rounded-lg transition-colors"
-          style={{ background: "var(--bg-elevated)", color: "#E07832", border: "1px solid var(--text-faint)" }}
+          style={{ background: "var(--bg-elevated)", color: "#FD7804", border: "1px solid var(--text-faint)" }}
           onMouseEnter={e => (e.currentTarget.style.background = "var(--text-faint)")}
           onMouseLeave={e => (e.currentTarget.style.background = "var(--bg-elevated)")}
         >

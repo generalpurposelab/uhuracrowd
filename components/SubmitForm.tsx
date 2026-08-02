@@ -71,13 +71,13 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)" }}>
         <div className="rounded-2xl p-8 max-w-md w-full text-center border" style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}>
-          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(224,120,50,0.1)" }}>
-            <span style={{ color: "#E07832", fontSize: "1.5rem" }}>✓</span>
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(253,120,4,0.1)" }}>
+            <span style={{ color: "#FD7804", fontSize: "1.5rem" }}>✓</span>
           </div>
           <h2 className="text-xl font-semibold mb-2" style={{ color: "var(--text-primary)" }}>Thanks for contributing!</h2>
           <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
             Your submission for{" "}
-            <span style={{ color: "#E07832" }}>
+            <span style={{ color: "#FD7804" }}>
               {languages.find((l) => l.id === form.languageId)?.name}
             </span>{" "}
             has been recorded. The map grows with every contribution.
@@ -85,7 +85,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
           <button
             onClick={onClose}
             className="px-6 py-2 font-semibold rounded-lg"
-            style={{ background: "#E07832", color: "#13100D" }}
+            style={{ background: "#FD7804", color: "#303030" }}
           >
             Back to map
           </button>
@@ -137,7 +137,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
                   className="text-xs px-2.5 py-1 rounded-full border transition-colors"
                   style={
                     selectedTasks.includes(task)
-                      ? { background: "#E07832", borderColor: "#E07832", color: "#13100D", fontWeight: 600 }
+                      ? { background: "#FD7804", borderColor: "#FD7804", color: "#303030", fontWeight: 600 }
                       : { borderColor: "var(--border)", color: "var(--text-secondary)" }
                   }
                 >
@@ -179,7 +179,7 @@ export default function SubmitForm({ languages, preselectedLanguage, onClose, on
             <button
               type="submit" disabled={!isValid}
               className="flex-1 py-2 px-4 text-sm font-semibold rounded-lg transition-colors"
-              style={{ background: isValid ? "#E07832" : "var(--bg-elevated)", color: isValid ? "#13100D" : "var(--text-muted)", cursor: isValid ? "pointer" : "not-allowed" }}
+              style={{ background: isValid ? "#FD7804" : "var(--bg-elevated)", color: isValid ? "#303030" : "var(--text-muted)", cursor: isValid ? "pointer" : "not-allowed" }}
             >
               Submit benchmark
             </button>

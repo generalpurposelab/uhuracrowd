@@ -53,8 +53,8 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
               className="text-xs font-medium px-2 py-0.5 rounded-full"
               style={
                 language.hasBenchmark
-                  ? { background: "rgba(34,197,94,0.1)", color: "#22c55e" }
-                  : { background: "rgba(239,68,68,0.1)", color: "#ef4444" }
+                  ? { background: "rgba(1,110,253,0.1)", color: "#016EFD" }
+                  : { background: "rgba(253,120,4,0.1)", color: "#FD7804" }
               }
             >
               {language.hasBenchmark ? `${language.benchmarks.length} found` : "None yet"}
@@ -71,7 +71,7 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
                   rel="noopener noreferrer"
                   className="block rounded-lg p-3 border transition-all group"
                   style={{ background: "var(--bg-base)", borderColor: "var(--border)" }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = "#22c55e")}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "#016EFD")}
                   onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -87,9 +87,9 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={e => e.stopPropagation()}
-                              style={{ color: "#E07832", textDecoration: "underline", textUnderlineOffset: "2px", textDecorationColor: "rgba(224,120,50,0.35)" }}
-                              onMouseEnter={e => (e.currentTarget.style.textDecorationColor = "#E07832")}
-                              onMouseLeave={e => (e.currentTarget.style.textDecorationColor = "rgba(224,120,50,0.35)")}
+                              style={{ color: "#FD7804", textDecoration: "underline", textUnderlineOffset: "2px", textDecorationColor: "rgba(253,120,4,0.35)" }}
+                              onMouseEnter={e => (e.currentTarget.style.textDecorationColor = "#FD7804")}
+                              onMouseLeave={e => (e.currentTarget.style.textDecorationColor = "rgba(253,120,4,0.35)")}
                             >
                               {b.authors}
                             </a>
@@ -112,7 +112,7 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
               ))}
             </div>
           ) : (
-            <div className="rounded-lg p-4 text-center border" style={{ background: "rgba(239,68,68,0.04)", borderColor: "rgba(239,68,68,0.15)" }}>
+            <div className="rounded-lg p-4 text-center border" style={{ background: "rgba(253,120,4,0.04)", borderColor: "rgba(253,120,4,0.15)" }}>
               <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 No benchmark exists yet for {language.name}.
               </p>
@@ -124,9 +124,9 @@ export default function LanguageDetail({ language, onClose, onSubmitBenchmark }:
         <button
           onClick={onSubmitBenchmark}
           className="w-full py-2 px-4 text-sm font-semibold rounded-lg transition-colors"
-          style={{ background: "#E07832", color: "#13100D" }}
+          style={{ background: "#FD7804", color: "#303030" }}
           onMouseEnter={e => (e.currentTarget.style.background = "#F08942")}
-          onMouseLeave={e => (e.currentTarget.style.background = "#E07832")}
+          onMouseLeave={e => (e.currentTarget.style.background = "#FD7804")}
         >
           + Submit a benchmark for {language.name}
         </button>

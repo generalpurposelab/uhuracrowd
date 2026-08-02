@@ -1,36 +1,56 @@
 @import "tailwindcss";
 
+/* ── General Purpose brand palette ──────────────────────────────────────
+   The 5 --gp-* values below are the actual brand hex codes, pulled from
+   the GP Figma identity file (Color spec page). Everything else in :root
+   is a *derived* UI token (backgrounds/text/borders built from those 5
+   colors plus a couple of hand-picked shades for hierarchy) — the --gp-*
+   constants are the source of truth if brand colors ever change.
+
+   Status-color semantics (benchmarked = Signal Blue, no-benchmark yet =
+   Warm Orange, selected = Silver) live in the components that use them
+   (see components/Globe.tsx) rather than as named tokens here, since
+   they're applied dynamically per-marker/per-row, not as static theme
+   colors. */
 :root {
-  --bg-base: #13100D;
-  --bg-surface: #1A1512;
-  --bg-elevated: #2A2420;
-  --border: #2A2420;
-  --text-primary: #F0EDE8;
-  --text-secondary: #9A8B7A;
-  --text-muted: #6B5F52;
-  --text-faint: #3D3028;
-  --brand-orange: #E07832;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-playfair);
+  --gp-black: #303030;
+  --gp-silver: #A8ACB5;
+  --gp-offwhite: #EEEEEE;
+  --gp-blue: #016EFD;
+  --gp-orange: #FD7804;
+
+  --bg-base: #1A1A1A;
+  --bg-surface: #242424;
+  --bg-elevated: var(--gp-black);
+  --border: #3D3D3D;
+  --text-primary: var(--gp-offwhite);
+  --text-secondary: var(--gp-silver);
+  --text-muted: #7D8188;
+  --text-faint: #4F5257;
+  --brand-orange: var(--gp-orange);
+  --brand-blue: var(--gp-blue);
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 [data-theme="light"] {
-  --bg-base: #EDE6DF;
-  --bg-surface: #E4DDD6;
-  --bg-elevated: #D8D0C8;
-  --border: #CEC6BC;
-  --text-primary: #1A1512;
-  --text-secondary: #5C4E42;
-  --text-muted: #9A8B7A;
-  --text-faint: #B8AFA6;
+  --bg-base: var(--gp-offwhite);
+  --bg-surface: #E4E4E4;
+  --bg-elevated: #D8D8D8;
+  --border: #C7C9CD;
+  --text-primary: var(--gp-black);
+  /* Kept darker than GP Silver — silver on off-white is ~2:1 contrast,
+     illegible for text; reserve silver for borders/decoration */
+  --text-secondary: #55585F;
+  --text-muted: #6E727A;
+  --text-faint: #94989F;
 }
 
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--text-primary);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 body {
@@ -40,7 +60,7 @@ body {
 
 /* Brand dot-grid texture */
 .dot-grid {
-  background-image: radial-gradient(circle, rgba(224, 120, 50, 0.10) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(253, 120, 4, 0.10) 1px, transparent 1px);
   background-size: 10px 10px;
 }
 
@@ -51,19 +71,11 @@ body {
 
 /* ── Motion ── */
 
-/* Map dot bloom — spring curve baked into easing, no extra keyframe needed */
-@keyframes dotReveal {
-  from { transform: scale(0); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-
-/* Leader lines + labels sequential fade */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* Stat progress bar scaleX from left — GPU only, no layout */
+/* Stat progress bar scaleX from left — GPU only, no layout. Used by
+   components/StatsBar.tsx. (This used to also host dotReveal/fadeIn
+   keyframes for the old SVG map's marker-reveal and label-fade animations;
+   those went away with the flat map itself — the WebGL globe animates via
+   cobe's own render loop, not CSS.) */
 @keyframes barFill {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
